@@ -19,3 +19,6 @@ def access_token_required(f):
 def get_all_looks():
 
     return "모든 코디를 조회해서 보여줌."
+
+
+
