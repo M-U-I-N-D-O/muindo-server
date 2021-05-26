@@ -1,6 +1,9 @@
 from flask import Flask
 from model import db
 from flask_jwt_extended import JWTManager
+from flask_apispec import FlaskApiSpec
+from view import closet
+
 
 def create_app():
 
@@ -11,11 +14,14 @@ def create_app():
 
     jwt = JWTManager(app)
 
-    from controller import closet
 
     app.register_blueprint(closet.closet)
+    docs = FlaskApiSpec(app)
+
+    docs.register(closet.get_all_looks, blueprint=closet.closet.name)
 
     return app
+
 app = create_app()
 
 if __name__ == "__main__":
