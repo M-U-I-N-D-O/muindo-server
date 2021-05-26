@@ -1,28 +1,22 @@
 from flask import Flask
-from init.init_app import create_app
+from model import db
+from flask_jwt_extended import JWTManager
 
+def create_app():
+
+    app = Flask(__name__)
+    app.config.from_pyfile("config.py")
+
+    db.init_app(app)
+
+    jwt = JWTManager(app)
+
+    from controller import closet
+
+    app.register_blueprint(closet.closet)
+
+    return app
 app = create_app()
-
-@app.route("/login")
-def login():
-    pass
-
-@app.route("/callback")
-def callback():
-    pass
-
-@app.route("/logout")
-def logout():
-    pass
-
-@app.route("/")
-def index():
-    return "hello"
-
-@app.route("/potect")
-def protect():
-    return "aa"
-
 
 if __name__ == "__main__":
     app.run()
