@@ -1,6 +1,6 @@
 from flask import  jsonify, request, Flask, redirect, session
 from flask_restful import  Resource, Api
-
+from flask_restful import wraps
 # flask_jwt_extended를 사용하여 서버와 클라이언트 사이에서 토큰으로 인증
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import create_refresh_token
@@ -8,7 +8,16 @@ from flask_jwt_extended import current_user
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 
+def access_token_required(f):
+    f.__access_token_required = True
 
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        print('do_something_with_access_token')
+
+        return f(*args, **kwargs)
+
+    return decorated
 class Login(Resource):
     def post(self):
         """
