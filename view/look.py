@@ -18,7 +18,7 @@ def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=No
 @looks.route('/upload', methods=['POST'])
 def upload_codi():
 
-    image = request.files.get('img')
+    image = request.form.get('img')
 
     return LookService.upload_look_azure(image)
 
