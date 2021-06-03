@@ -24,4 +24,4 @@ def get_items(middlecategory=None, subcategory=None, brand=None) -> list:
     if brand:
         query = query.filter(Item.brand==brand)
 
-    return query.all()
+    return query.limit(50).all()

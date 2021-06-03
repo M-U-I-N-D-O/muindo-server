@@ -6,22 +6,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
-from apispec_webframeworks.flask import FlaskPlugin
+
 
 def create_app():
 
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
-    # app.config.update({
-    #     'APISPEC_SPEC': APISpec(
-    #         title='MUINDO',
-    #         version='0.1.0',
-    #         openapi_version='3.0.2',
-    #         plugins=[MarshmallowPlugin(), FlaskPlugin()],
-    #     )
-    # })
-
-    docs = FlaskApiSpec(app)
+    app.config.update({
+        'APISPEC_SPEC': APISpec(
+            title='MUINDO',
+            version='v1',
+            openapi_version='2.0',
+            plugins=[MarshmallowPlugin()],
+        )
+    })
+    docs = FlaskApiSpec(app=app, document_options=False)
 
     with app.app_context():
         db = SQLAlchemy(app)
