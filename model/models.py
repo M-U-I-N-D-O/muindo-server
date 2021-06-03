@@ -37,11 +37,11 @@ class Look(model.Model):
     ok = model.Column(model.Integer)
     no = model.Column(model.Integer)
 
-    item = model.relationship('Item', primaryjoin='Look.bag == Item.id', backref='item_item_item_item_looks')
+    item = model.relationship('Item', primaryjoin='Look.bag == Item.id', backref='item_item_item_item_looks0')
     item1 = model.relationship('Item', primaryjoin='Look.bottom == Item.id', backref='item_item_item_item_looks_0')
-    item2 = model.relationship('Item', primaryjoin='Look.hat == Item.id', backref='item_item_item_item_looks')
-    item3 = model.relationship('Item', primaryjoin='Look.shoes == Item.id', backref='item_item_item_item_looks_0')
-    item4 = model.relationship('Item', primaryjoin='Look.top == Item.id', backref='item_item_item_item_looks')
+    item2 = model.relationship('Item', primaryjoin='Look.hat == Item.id', backref='item_item_item_item_looks1')
+    item3 = model.relationship('Item', primaryjoin='Look.shoes == Item.id', backref='item_item_item_item_looks_1')
+    item4 = model.relationship('Item', primaryjoin='Look.top == Item.id', backref='item_item_item_item_looks2')
     user = model.relationship('User', primaryjoin='Look.userid == User.id', backref='looks')
 
 

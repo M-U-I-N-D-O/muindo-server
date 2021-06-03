@@ -1,8 +1,9 @@
 from flask import Flask
-from model import db
 from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
 from view import look, mypage
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
@@ -22,7 +23,9 @@ def create_app():
 
     docs = FlaskApiSpec(app)
 
-    db.init_app(app)
+    with app.app_context():
+        db = SQLAlchemy(app)
+        ma = Marshmallow(app)
     jwt = JWTManager(app)
 
     app.register_blueprint(look.looks)
