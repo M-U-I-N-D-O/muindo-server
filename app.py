@@ -1,16 +1,30 @@
 from flask import Flask
-from model import db
 from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
-from view import look, mypage, auth
+from view import look, mypage
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
 
 
 def create_app():
 
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
+    app.config.update({
+        'APISPEC_SPEC': APISpec(
+            title='MUINDO',
+            version='v1',
+            openapi_version='2.0',
+            plugins=[MarshmallowPlugin()],
+        )
+    })
+    docs = FlaskApiSpec(app=app, document_options=False)
 
-    db.init_app(app)
+    with app.app_context():
+        db = SQLAlchemy(app)
+        ma = Marshmallow(app)
     jwt = JWTManager(app)
 
     app.register_blueprint(look.looks)
@@ -30,7 +44,6 @@ def create_app():
 
 
 app = create_app()
-
 
 if __name__ == "__main__":
     app.run(debug=True)
