@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
-from view import look, mypage
+from view import look, mypage, auth
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from apispec import APISpec
@@ -31,8 +31,6 @@ def create_app():
     app.register_blueprint(mypage.mypage)
     app.register_blueprint(auth.auth)
 
-
-    docs = FlaskApiSpec(app)
     docs.register(look.get_musinsa_items, blueprint=look.looks.name)
     docs.register(look.upload_codi, blueprint=look.looks.name)
     docs.register(look.confirm_codi, blueprint=look.looks.name)
