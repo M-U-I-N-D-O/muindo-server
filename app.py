@@ -29,12 +29,16 @@ def create_app():
 
     app.register_blueprint(look.looks)
     app.register_blueprint(mypage.mypage)
+    app.register_blueprint(auth.auth)
 
-    with app.app_context():
-        docs.register(target=look.get_musinsa_items, blueprint=look.looks.name)
-        docs.register(target=look.upload_codi, blueprint=look.looks.name)
-        docs.register(target=look.confirm_codi, blueprint=look.looks.name)
-        docs.register(target=mypage.get_looks, blueprint=mypage.mypage.name)
+
+    docs = FlaskApiSpec(app)
+    docs.register(look.get_musinsa_items, blueprint=look.looks.name)
+    docs.register(look.upload_codi, blueprint=look.looks.name)
+    docs.register(look.confirm_codi, blueprint=look.looks.name)
+    docs.register(mypage.get_looks, blueprint=mypage.mypage.name)
+    docs.register(auth.get_access_token, blueprint=auth.auth.name)
+    docs.register(auth.refresh, blueprint=auth.auth.name)
 
     return app
 
@@ -42,5 +46,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-
-    app.run()
+    app.run(debug=True)
