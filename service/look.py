@@ -6,11 +6,8 @@ class ItemService:
     @classmethod
     def get_musinsa_items(self, middlecategory, subcategory, brand, type):
 
-        if type == 'hat':
-            middlecategory='007'
-        else:
-            middlecategory='020'
-
+        from utils import category_dict
+        middlecategory = category_dict.get(type)[0]
         results = look.get_items(middlecategory=middlecategory, subcategory=subcategory, brand=brand)
         return results
 
