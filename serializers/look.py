@@ -8,6 +8,7 @@ class LookRequest(Schema):
     subcategory = fields.String()
     brand = fields.String()
     type = fields.String()
+    itemid = fields.Integer()
 
 class ItemSchema(SQLAlchemySchema):
     class Meta:

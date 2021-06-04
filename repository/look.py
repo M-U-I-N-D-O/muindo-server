@@ -12,7 +12,7 @@ def get_look(lookid:int) -> Look:
     return Look()
 
 
-def get_items(middlecategory=None, subcategory=None, brand=None) -> list:
+def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None) -> list:
 
     query = Item.query
 
@@ -25,8 +25,11 @@ def get_items(middlecategory=None, subcategory=None, brand=None) -> list:
     if brand:
         query = query.filter(Item.brand==brand)
 
+    if itemid:
+        print(itemid)
+        query = query.filter(Item.id > itemid)
 
-    results = query.order_by(func.random()).limit(12).all()
+    results = query.order_by().limit(12).all()
 
     db.session.close()
 

@@ -6,11 +6,11 @@ class ItemService:
 
 
     @classmethod
-    def get_musinsa_items(self, middlecategory, subcategory, brand, type):
+    def get_musinsa_items(self, middlecategory, subcategory, brand, type, itemid=None):
 
         from utils import category_dict
         middlecategory = category_dict.get(type)[0]
-        results = look.get_items(middlecategory=middlecategory, subcategory=subcategory, brand=brand)
+        results = look.get_items(middlecategory=middlecategory, subcategory=subcategory, brand=brand, itemid=itemid)
         return results
 
 class LookService:
@@ -31,7 +31,8 @@ class LookService:
         blob.upload_blob(imgdata)
 
         items = request.get('items')
-        items['userid'] = get_jwt()['sub']
+        userid = get_jwt()['sub']
         items['url'] = blob.url
 
-        return look.add_look(items)
+        # return look.add_look(items)
+        return 'hi'
