@@ -27,8 +27,8 @@ def get_access_token(email, name, uid, provider):
 @jwt_required(refresh=True)
 @marshal_with(AccessTokenSchema)
 def refresh():
-    uid=get_jwt()['sub']
-    return AuthService.create_access_token(uid)
+    user_id = get_jwt()['sub']
+    return AuthService.create_access_token(user_id)
 
 
 

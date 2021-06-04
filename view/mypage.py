@@ -12,8 +12,8 @@ mypage = Blueprint("mypage", __name__, url_prefix="/mypage")
 @jwt_required()
 @marshal_with(MyLooksSchema(many=True))
 def get_my_looks():
-    uid=get_jwt()['sub']
-    return MyPageService.get_my_looks(uid)
+    user_id=get_jwt()['sub']
+    return MyPageService.get_my_looks(user_id)
 
 
 @doc(tags=['mypage'], description='내가 올린 특정 룩의 각종 디테일한 사항들을 조회함')
