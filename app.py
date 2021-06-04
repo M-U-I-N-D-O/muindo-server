@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
-
+from flask_cors import CORS
 
 def create_app():
 
@@ -37,6 +37,15 @@ def create_app():
     docs.register(mypage.get_looks, blueprint=mypage.mypage.name)
     docs.register(auth.get_access_token, blueprint=auth.auth.name)
     docs.register(auth.refresh, blueprint=auth.auth.name)
+
+    CORS(
+            app,
+            resources={
+                r"*":{
+                    "origins":["*"]
+                    }
+                }
+    )
 
     return app
 
