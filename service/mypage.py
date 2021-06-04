@@ -4,8 +4,8 @@ from repository.mypage import *
 class MyPageService:
 
     @classmethod
-    def get_my_looks(self, uid):
-        return my_looks_from_db(uid)
+    def get_my_looks(self, user_id):
+        return my_looks_from_db(user_id)
 
     @classmethod
     def get_my_look_detail(self, look_id):

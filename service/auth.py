@@ -16,6 +16,6 @@ class AuthService:
         return {"access_token": access_token, "refresh_token": refresh_token}
 
     @classmethod
-    def create_access_token(self,unique_id):
-        access_token = create_access_token(identity=unique_id, fresh=False)
+    def create_access_token(self,user_id):
+        access_token = create_access_token(identity=user_id, fresh=False)
         return jsonify(access_token=access_token)
