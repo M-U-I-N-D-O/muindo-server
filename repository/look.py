@@ -28,6 +28,6 @@ def get_items(middlecategory=None, subcategory=None, brand=None) -> list:
 
     results = query.order_by(func.random()).limit(12).all()
 
-    db.session.flush()
+    db.session.close()
 
     return results
