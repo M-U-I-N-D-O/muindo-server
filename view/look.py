@@ -14,6 +14,14 @@ def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=No
     return ItemService.get_musinsa_items(middlecategory, subcategory, brand, type)
 
 
+@doc(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
+@looks.route('/items/test')
+@use_kwargs(LookRequest, location="query")
+@marshal_with(ItemSchema(many=True))
+def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=None):
+    return ItemService.get_musinsa_items(middlecategory, subcategory, brand, type)
+
+
 @doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
 def upload_codi():
