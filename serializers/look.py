@@ -9,7 +9,6 @@ class LookRequest(Schema):
     brand = fields.String()
     type = fields.String()
 
-
 class ItemSchema(SQLAlchemySchema):
     class Meta:
         model = Item
