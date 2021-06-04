@@ -18,7 +18,7 @@ def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=No
 @looks.route('/items/test')
 @use_kwargs(LookRequest, location="query")
 @marshal_with(ItemSchema(many=True))
-def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=None):
+def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, type=None):
     return ItemService.get_musinsa_items(middlecategory, subcategory, brand, type)
 
 
