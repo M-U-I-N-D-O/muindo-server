@@ -7,6 +7,7 @@ from repository.auth import db_check_if_not_insert_to_db
 def if_first_time_insert_db(email, name, provider, unique_id):
     db_check_if_not_insert_to_db(email, name, provider, unique_id)
 
+
 class AuthService:
     @classmethod
     def create_tokens(self, unique_id):
