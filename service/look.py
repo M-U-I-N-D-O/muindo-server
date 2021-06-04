@@ -28,5 +28,4 @@ class LookService:
 
         blob.upload_blob(imgdata)
 
->>>>>>> a7850569ab772121efb43f5b350dbabc8ca04c3d
         return blob.url
