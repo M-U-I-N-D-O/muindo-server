@@ -31,3 +31,15 @@ def get_items(middlecategory=None, subcategory=None, brand=None) -> list:
     db.session.close()
 
     return results
+
+
+def add_look(items):
+
+    new_look = Look(items)
+    db.session.add(new_look)
+    db.session.close()
+
+    return new_look.id
+
+
+

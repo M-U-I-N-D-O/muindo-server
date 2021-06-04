@@ -1,24 +1,11 @@
-from flask import  jsonify, Blueprint, Response
-from flask_restful import wraps
+from flask import  Blueprint
 from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt_identity, get_jwt_request_location,get_jwt
-
+from flask_jwt_extended import get_jwt
 from flask_apispec import doc, use_kwargs, marshal_with
 from service.auth import *
 from serializers.auth import *
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
-
-
-def access_token_required(f):
-    f.__access_token_required = True
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        print('do_something_with_access_token')
-
-        return f(*args, **kwargs)
-
-    return decorated
 
 
 @doc(tags=['auth'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
