@@ -1,5 +1,5 @@
 from model.models import Look, Item
-
+from sqlalchemy.sql.expression import func
 
 def get_user_looks(userid:int) -> list:
     looks = Look.query.all()
@@ -24,4 +24,5 @@ def get_items(middlecategory=None, subcategory=None, brand=None) -> list:
     if brand:
         query = query.filter(Item.brand==brand)
 
-    return query.limit(50).all()
+
+    return query.order_by(func.random()).limit(12).all()
