@@ -16,7 +16,7 @@ def get_my_looks():
     return MyPageService.get_my_looks(uid)
 
 
-@doc(tags=['mypage'], description='내가 올린 특정 룩을 조회함')
+@doc(tags=['mypage'], description='내가 올린 특정 룩의 각종 디테일한 사항들을 조회함')
 @mypage.route('/my-looks/<int:look_id>', methods=['GET'])
 @jwt_required()
 @marshal_with(MyLooksSchema(many=True))

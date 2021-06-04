@@ -17,3 +17,4 @@ class MyLooksSchema(SQLAlchemySchema):
     bag = auto_field()
     ok = auto_field()
     no = auto_field()
+
