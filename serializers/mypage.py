@@ -6,7 +6,6 @@ from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 class MyLooksSchema(SQLAlchemySchema):
     class Meta:
         model = Look
-
     id = auto_field()
     created = auto_field()
     userid = auto_field()
@@ -17,7 +16,7 @@ class MyLooksSchema(SQLAlchemySchema):
     bag = auto_field()
     ok = auto_field()
     no = auto_field()
-
+    url = auto_field()
 
 class GetItemInfoSchema(Schema):
     hat_id = fields.Integer()
