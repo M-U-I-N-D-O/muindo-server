@@ -54,3 +54,4 @@ class MakeLookRequest(Schema):
 
     dataType = fields.String()
     data = fields.Nested(Schema.from_dict({"img" : fields.String()}))
+    items = fields.Nested(LookSchema)
