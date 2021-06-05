@@ -3,7 +3,6 @@ from model.models import User, Look
 
 
 def my_looks_from_db(user_id):
-    user_id = User.query.filter_by(id=user_id)
     my_looks = Look.query.filter_by(userid=user_id).all()
     return my_looks
 
