@@ -30,10 +30,7 @@ def validate_quantity(n):
 
 
 
-
-
 class ItemResponseShcema(Schema):
-
     type = fields.String()
     data = fields.Nested(Nested(ItemSchema))
 
@@ -55,3 +52,4 @@ class LookSchema(Schema):
 class MakeLookRequestSchema(Schema):
     dataType = fields.String(validate=validate_quantity)
     items = Nested(LookSchema)
+

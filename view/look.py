@@ -28,11 +28,13 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 @jwt_required()
 @use_kwargs(MakeLookRequestSchema, location='form')
 @marshal_with(LookSchema)
-def upload_codi(items):
+def upload_codi():
 
-    print(items)
-
-    return LookService.upload_look(request.json)
+    newlookschema = MakeLookRequestSchema()
+    newlookschema.load(request.args.to_dict())
+    print(newlookschema)
+    # return LookService.upload_look(newlookschema)
+    return 'test'
 
 
 @doc(tags=['looks'], description='코디의 컨펌여부')
