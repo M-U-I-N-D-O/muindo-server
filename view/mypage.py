@@ -22,3 +22,13 @@ def get_my_looks():
 @marshal_with(MyLooksSchema(many=True))
 def get_my_look_detail(look_id):
     return MyPageService.get_my_look_detail(look_id)
+
+
+@doc(tags=['mypage'], description='내가 올린 특정 룩의 각종 디테일한 사항들을 조회함')
+@mypage.route('/my-looks/info', methods=['GET'])
+@use_kwargs(GetItemInfoSchema)
+@jwt_required()
+@marshal_with(ItemsInfoSchema(many=True))
+def get_look_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id ):
+    return MyPageService.get_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id)
+
