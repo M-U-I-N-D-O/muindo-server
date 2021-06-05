@@ -31,8 +31,6 @@ def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None) ->
 
     results = query.order_by().limit(12).all()
 
-    db.session.close()
-
     return results
 
 

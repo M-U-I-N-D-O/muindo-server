@@ -8,6 +8,7 @@ from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from flask_cors import CORS
 
+
 def create_app():
 
     app = Flask(__name__)
@@ -26,6 +27,8 @@ def create_app():
         db = SQLAlchemy(app)
         ma = Marshmallow(app)
     jwt = JWTManager(app)
+
+    app.teardown_appcontext(shutdown_session)
 
     app.register_blueprint(look.looks)
     app.register_blueprint(mypage.mypage)
@@ -50,6 +53,11 @@ def create_app():
 
     return app
 
+def shutdown_session(response):
+
+    from model import db
+    db.session.remove()
+    return response
 
 app = create_app()
 

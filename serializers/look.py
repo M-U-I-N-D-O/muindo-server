@@ -1,9 +1,8 @@
-from marshmallow import Schema, fields, validates_schema
+from marshmallow import Schema, fields, ValidationError
 from model.models import *
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
-from marshmallow_sqlalchemy.fields import Nested
+from marshmallow.fields import Nested, validate
 
-@validates_schema()
+
 class LookRequest(Schema):
     middlecategory = fields.String()
     subcategory = fields.String()
@@ -11,36 +10,48 @@ class LookRequest(Schema):
     type = fields.String()
     itemid = fields.Integer()
 
-class ItemSchema(SQLAlchemySchema):
+
+class ItemSchema(Schema):
     class Meta:
         model = Item
 
-    id = auto_field()
-    name = auto_field()
-    url = auto_field()
-    musinsa = auto_field()
-    price = auto_field()
-    brand = auto_field()
+    id = fields.Integer()
+    name = fields.String()
+    url = fields.String()
+    musinsa = fields.String()
+    price = fields.Integer()
+    brand = fields.String()
 
 
-class ItemResponseShcema(SQLAlchemySchema):
+def validate_quantity(n):
+
+    if n :
+        raise ValueError
+
+
+
+
+
+class ItemResponseShcema(Schema):
 
     type = fields.String()
-    data = fields.List(fields.Nested(ItemSchema))
+    data = fields.Nested(Nested(ItemSchema))
 
 
-class LookSchema(SQLAlchemySchema):
+class LookSchema(Schema):
 
-    class Meta:
-        model = Look
+    id = fields.Integer()
+    userid = fields.Integer()
+    hat = fields.Integer(validate=validate_quantity)
+    top = fields.Integer(validate=validate_quantity)
+    bottom = fields.Integer(validate=validate_quantity)
+    shoes = fields.Integer(validate=validate_quantity)
+    bag = fields.Integer(validate=validate_quantity)
+    url = fields.String()
+    ok = fields.Integer()
+    no = fields.Integer()
 
-    id = auto_field()
-    userid = auto_field()
-    hat = auto_field()
-    top = auto_field()
-    bottom = auto_field()
-    shoes = auto_field()
-    bag = auto_field()
-    url = auto_field()
-    ok = auto_field()
-    no = auto_field()
+
+class MakeLookRequestSchema(Schema):
+    dataType = fields.String(validate=validate_quantity)
+    items = Nested(LookSchema)
