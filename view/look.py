@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_apispec import doc, use_kwargs, marshal_with
-from serializers.look import LookRequest, LookSchema, ItemSchema
+from serializers.look import LookRequest, MakeLookRequestSchema, ItemSchema, LookSchema
 from service.look import ItemService, LookService
 from flask_jwt_extended import jwt_required
 looks = Blueprint("looks", __name__, url_prefix="/looks")
@@ -26,19 +26,16 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 @doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
 @jwt_required()
+@use_kwargs(MakeLookRequestSchema, location='form')
 @marshal_with(LookSchema)
-def upload_codi():
+def upload_codi(items):
+
+    print(items)
+
     return LookService.upload_look(request.json)
 
 
 @doc(tags=['looks'], description='코디의 컨펌여부')
 @looks.route('/confirm', methods=['POST', 'GET'])
 def confirm_codi():
-
-    import requests
-
-    response = requests.get('https://sherlockodds.blob.core.windows.net/musinsa/1159STUDIO_1477298_1_500.jpg')
-
-    if response.status_code == 200:
-        print(response.headers.get('Access-Control-Allow-Origin'))
     return "코디의 컨펌여부"
