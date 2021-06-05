@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_apispec import doc, use_kwargs, marshal_with
-from serializers.look import LookRequest, ItemResponseShcema, ItemSchema
+from serializers.look import LookRequest, LookSchema, ItemSchema
 from service.look import ItemService, LookService
 from flask_jwt_extended import jwt_required
 looks = Blueprint("looks", __name__, url_prefix="/looks")
@@ -26,8 +26,9 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 @doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
 @jwt_required()
+@marshal_with(LookSchema)
 def upload_codi():
-    return str(LookService.upload_look_azure(request.json))
+    return LookService.upload_look(request.json)
 
 
 @doc(tags=['looks'], description='코디의 컨펌여부')

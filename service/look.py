@@ -1,6 +1,6 @@
 from repository import look
 from flask_jwt_extended import get_jwt
-
+from serializers.look import LookSchema
 
 class ItemService:
 
@@ -16,7 +16,7 @@ class ItemService:
 class LookService:
 
     @classmethod
-    def upload_look_azure(self, request):
+    def upload_look(self, request):
         from azure.storage.blob import BlobClient
         from datetime import datetime
         import base64
@@ -35,4 +35,7 @@ class LookService:
         items['url'] = blob.url
         items['userid'] = userid
 
-        return look.add_look(items)
+        newlook = look.add_look(items)
+        newlook_schema = LookSchema()
+
+        return newlook
