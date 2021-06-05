@@ -1,8 +1,9 @@
 from flask import Blueprint, request
 from flask_apispec import doc, use_kwargs, marshal_with
-from serializers.look import LookRequest, LookSchema, ItemSchema
+from serializers.look import LookRequest, LookSchema, ItemSchema, MakeLookRequest
 from service.look import ItemService, LookService
 from flask_jwt_extended import jwt_required
+from marshmallow import ValidationError
 looks = Blueprint("looks", __name__, url_prefix="/looks")
 
 
@@ -28,7 +29,21 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 @jwt_required()
 @marshal_with(LookSchema)
 def upload_codi():
-    return LookService.upload_look(request.json)
+
+    schema = MakeLookRequest()
+    try:
+        newlook = schema.load(request.get_json())
+
+    except ValidationError as error:
+        wrong_validated_items = error.args[0].get('items')
+        if wrong_validated_items :
+            validated_items = error.valid_data
+
+            for c in wrong_validated_items.keys():
+                validated_items.get('items')[c] = None
+
+        newlook = validated_items
+    return LookService.upload_look(newlook)
 
 
 @doc(tags=['looks'], description='코디의 컨펌여부')

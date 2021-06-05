@@ -1,9 +1,13 @@
-from marshmallow import Schema, fields, validates_schema
+from marshmallow import Schema, fields
 from model.models import *
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
-from marshmallow_sqlalchemy.fields import Nested
 
-@validates_schema()
+
+def validate_item(n):
+
+    if n == '':
+        print('nope')
+        n = -1
+
 class LookRequest(Schema):
     middlecategory = fields.String()
     subcategory = fields.String()
@@ -11,36 +15,43 @@ class LookRequest(Schema):
     type = fields.String()
     itemid = fields.Integer()
 
-class ItemSchema(SQLAlchemySchema):
+
+class ItemSchema(Schema):
     class Meta:
         model = Item
 
-    id = auto_field()
-    name = auto_field()
-    url = auto_field()
-    musinsa = auto_field()
-    price = auto_field()
-    brand = auto_field()
+    id = fields.Integer()
+    name = fields.String()
+    url = fields.String()
+    musinsa = fields.String()
+    price = fields.Integer()
+    brand = fields.String()
 
 
-class ItemResponseShcema(SQLAlchemySchema):
+class ItemResponseShcema(Schema):
 
     type = fields.String()
     data = fields.List(fields.Nested(ItemSchema))
 
 
-class LookSchema(SQLAlchemySchema):
+class LookSchema(Schema):
 
     class Meta:
         model = Look
 
-    id = auto_field()
-    userid = auto_field()
-    hat = auto_field()
-    top = auto_field()
-    bottom = auto_field()
-    shoes = auto_field()
-    bag = auto_field()
-    url = auto_field()
-    ok = auto_field()
-    no = auto_field()
+    id = fields.Integer()
+    userid = fields.Integer()
+    hat = fields.Integer(validate=validate_item, default=0)
+    top = fields.Integer(validate=validate_item)
+    bottom = fields.Integer(validate=validate_item)
+    shoes = fields.Integer(validate=validate_item)
+    bag = fields.Integer(validate=validate_item)
+    url = fields.String()
+    ok = fields.Integer()
+    no = fields.Integer()
+
+class MakeLookRequest(Schema):
+
+    dataType = fields.String()
+    data = fields.Nested(Schema.from_dict({"img" : fields.String()}))
+    items = fields.Nested(LookSchema)
