@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
-from view import look, mypage, auth
+from view import look, mypage, auth, tinder
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from apispec import APISpec
@@ -30,6 +30,7 @@ def create_app():
     app.register_blueprint(look.looks)
     app.register_blueprint(mypage.mypage)
     app.register_blueprint(auth.auth)
+    app.register_blueprint(tinder.tinder)
 
     docs.register(look.get_musinsa_items, blueprint=look.looks.name)
     docs.register(look.upload_codi, blueprint=look.looks.name)
@@ -38,6 +39,8 @@ def create_app():
     docs.register(mypage.get_my_look_detail, blueprint=mypage.mypage.name)
     docs.register(auth.get_access_token, blueprint=auth.auth.name)
     docs.register(auth.refresh, blueprint=auth.auth.name)
+    docs.register(tinder.main_tinder, blueprint=tinder.tinder.name)
+    docs.register(tinder.test_tinder, blueprint=tinder.tinder.name)
 
     CORS(
             app,
