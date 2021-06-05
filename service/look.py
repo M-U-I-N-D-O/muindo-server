@@ -33,6 +33,6 @@ class LookService:
         items = request.get('items')
         userid = get_jwt()['sub']
         items['url'] = blob.url
+        items['userid'] = userid
 
-        # return look.add_look(items)
-        return 'hi'
+        return look.add_look(items)

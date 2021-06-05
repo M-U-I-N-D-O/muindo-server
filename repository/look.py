@@ -40,7 +40,7 @@ def add_look(items):
 
     new_look = Look(items)
     db.session.add(new_look)
-    db.session.close()
+    db.session.commit()
 
     return new_look.id
 

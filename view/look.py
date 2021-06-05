@@ -27,7 +27,7 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 @looks.route('/upload', methods=['POST'])
 @jwt_required()
 def upload_codi():
-    return LookService.upload_look_azure(request.json)
+    return str(LookService.upload_look_azure(request.json))
 
 
 @doc(tags=['looks'], description='코디의 컨펌여부')
