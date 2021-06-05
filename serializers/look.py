@@ -1,7 +1,12 @@
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, fields
 from model.models import *
-from marshmallow.fields import Nested, validate
 
+
+def validate_item(n):
+
+    if n == '':
+        print('nope')
+        n = -1
 
 class LookRequest(Schema):
     middlecategory = fields.String()
@@ -23,33 +28,30 @@ class ItemSchema(Schema):
     brand = fields.String()
 
 
-def validate_quantity(n):
-
-    if n :
-        raise ValueError
-
-
-
 class ItemResponseShcema(Schema):
+
     type = fields.String()
-    data = fields.Nested(Nested(ItemSchema))
+    data = fields.List(fields.Nested(ItemSchema))
 
 
 class LookSchema(Schema):
 
+    class Meta:
+        model = Look
+
     id = fields.Integer()
     userid = fields.Integer()
-    hat = fields.Integer(validate=validate_quantity)
-    top = fields.Integer(validate=validate_quantity)
-    bottom = fields.Integer(validate=validate_quantity)
-    shoes = fields.Integer(validate=validate_quantity)
-    bag = fields.Integer(validate=validate_quantity)
+    hat = fields.Integer(validate=validate_item, default=0)
+    top = fields.Integer(validate=validate_item)
+    bottom = fields.Integer(validate=validate_item)
+    shoes = fields.Integer(validate=validate_item)
+    bag = fields.Integer(validate=validate_item)
     url = fields.String()
     ok = fields.Integer()
     no = fields.Integer()
 
+class MakeLookRequest(Schema):
 
-class MakeLookRequestSchema(Schema):
-    dataType = fields.String(validate=validate_quantity)
-    items = Nested(LookSchema)
-
+    dataType = fields.String()
+    data = fields.Nested(Schema.from_dict({"img" : fields.String()}))
+    items = fields.Nested(LookSchema)

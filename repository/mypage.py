@@ -9,7 +9,7 @@ def my_looks_from_db(user_id):
 
 
 def my_look_detail_from_db(look_id:int) -> Look:
-    look = Look.query.filter(look_id)
+    look = Look.query.filter_by(id=look_id).first()
     return look
 
 
