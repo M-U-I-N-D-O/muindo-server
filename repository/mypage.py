@@ -1,6 +1,6 @@
 from model import db
-from model.models import User, Look, Item
-from flask import jsonify
+from model.models import Look, Item
+
 
 def my_looks_from_db(user_id):
     my_looks = Look.query.filter_by(userid=user_id).all()

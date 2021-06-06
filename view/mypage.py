@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,request,jsonify
 from flask_apispec import doc, use_kwargs, marshal_with
 from serializers.mypage import *
 from service.mypage import *
@@ -25,10 +25,30 @@ def get_my_look_detail(look_id):
 
 
 @doc(tags=['mypage'], description='내가 올린 특정 룩의 각종 디테일한 사항들을 조회함')
-@mypage.route('/my-looks/info', methods=['GET'])
+@doc(
+    description='Test token access',
+    params={
+        'Authorization': {
+            'description':
+            'Authorization HTTP header with JWT access token, like: Authorization: Bearer asdf.qwer.zxcv',
+            'in':
+            'header',
+            'type':
+            'string',
+            'required':
+            True
+        }
+    })
+@mypage.route('/my-looks/info', methods=['POST','GET'])
 @use_kwargs(GetItemInfoSchema)
 @jwt_required()
 @marshal_with(ItemsInfoSchema(many=True))
 def get_look_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id ):
+    print(hat_id, top_id, bottom_id)
     return MyPageService.get_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id)
 
+@mypage.route('/test', methods=['GET','POST'])
+def test():
+    test_json = request.json
+    print(test_json)
+    return jsonify(test_json)

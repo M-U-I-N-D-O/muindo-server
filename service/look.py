@@ -2,18 +2,22 @@ from repository import look
 from flask_jwt_extended import get_jwt
 from serializers.look import LookSchema
 
+
 class ItemService:
 
 
     @classmethod
-    def get_musinsa_items(self, middlecategory, subcategory, brand, type, itemid=None):
+    def get_musinsa_items(self, middlecategory=None, subcategory=None, brand=None, type=None, itemid=None):
 
-        from utils import category_dict
-        middlecategory = category_dict.get(type)[0]
-        results = look.get_items(middlecategory=middlecategory, subcategory=subcategory, brand=brand, itemid=itemid)
+        if not middlecategory and not subcategory and type:
+            from utils import category_dict
+            middlecategory = category_dict.get(type)[0]
+        results = look.get_items(middlecategory=middlecategory, subcategory=subcategory, brand=brand, itemid=itemid, userid=get_jwt()['sub'])
         return results
 
+
 class LookService:
+
 
     @classmethod
     def upload_look(self, request):

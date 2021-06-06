@@ -18,6 +18,7 @@ class MyLooksSchema(SQLAlchemySchema):
     no = auto_field()
     url = auto_field()
 
+
 class GetItemInfoSchema(Schema):
     hat_id = fields.Integer()
     top_id = fields.Integer()
