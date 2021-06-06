@@ -64,7 +64,11 @@ def upload_codi():
             for c in wrong_validated_items.keys():
                 validated_items.get('items')[c] = None
 
-        newlook = validated_items
+            newlook = validated_items
+        else:
+            from werkzeug.exceptions import BadRequest
+            raise BadRequest
+
     return LookService.upload_look(newlook)
 
 
