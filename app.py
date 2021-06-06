@@ -54,9 +54,11 @@ def create_app():
 
     return app
 
+
 def shutdown_session(response):
     db.session.remove()
     return response
+
 
 app = create_app()
 
