@@ -17,17 +17,6 @@ def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=No
 
 
 @doc(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
-@doc(
-    description='need access-token',
-    params={
-        'Authorization': {
-            'description':
-            'Authorization HTTP header with JWT access token, like: Authorization: Bearer asdf.qwer.zxcv',
-            'in':'header',
-            'type':'string',
-            'required':True
-        }
-    })
 @looks.route('/items/test')
 @use_kwargs(LookRequest, location="query")
 @marshal_with(ItemSchema(many=True))
@@ -36,17 +25,6 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 
 
 @doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
-@doc(
-    description='need access-token',
-    params={
-        'Authorization': {
-            'description':
-            'Authorization HTTP header with JWT access token, like: Authorization: Bearer asdf.qwer.zxcv',
-            'in':'header',
-            'type':'string',
-            'required': True
-        }
-    })
 @looks.route('/upload', methods=['POST'])
 @jwt_required()
 @marshal_with(LookSchema)
@@ -64,7 +42,11 @@ def upload_codi():
             for c in wrong_validated_items.keys():
                 validated_items.get('items')[c] = None
 
-        newlook = validated_items
+            newlook = validated_items
+        else:
+            from werkzeug.exceptions import BadRequest
+            raise BadRequest
+
     return LookService.upload_look(newlook)
 
 
