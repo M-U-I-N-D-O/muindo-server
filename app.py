@@ -1,5 +1,8 @@
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 from flask import Flask
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, get_jwt, create_access_token,set_access_cookies
 from flask_apispec import FlaskApiSpec
 from view import look, mypage, auth, tinder
 from flask_marshmallow import Marshmallow
@@ -39,7 +42,6 @@ def create_app():
     docs.register(mypage.get_my_look_detail, blueprint=mypage.mypage.name)
     docs.register(mypage.get_look_items_info, blueprint=mypage.mypage.name)
     docs.register(auth.get_access_token, blueprint=auth.auth.name)
-    docs.register(auth.refresh, blueprint=auth.auth.name)
     docs.register(tinder.main_tinder, blueprint=tinder.tinder.name)
     docs.register(tinder.test_tinder, blueprint=tinder.tinder.name)
 
@@ -57,6 +59,20 @@ def create_app():
     from marshmallow.exceptions import ValidationError
     app.register_error_handler(BadRequest, error_handler_400)
     app.register_error_handler(ValidationError, error_handler_400)
+
+    @app.after_request
+    def refresh_expiring_jwts(response):
+        try:
+            exp_timestamp = get_jwt()["exp"]
+            now = datetime.now(timezone.utc)
+            target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+            if target_timestamp > exp_timestamp:
+                access_token = create_access_token(identity=get_jwt()['sub'])
+                set_access_cookies(response, access_token)
+            return response
+        except (RuntimeError, KeyError):
+            # Case where there is not a valid JWT. Just return the original respone
+            return response
 
     return app
 
