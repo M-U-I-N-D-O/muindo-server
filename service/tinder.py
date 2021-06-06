@@ -8,5 +8,5 @@ class TinderService:
         return random_looks_from_db(user_id=user_id, item_id=item_id)
 
     @classmethod
-    def get_test_looks(self, test):
-        return test_looks_from_db(test)
+    def confirm_looks(self, confirm):
+        return add_confirm(confirm) != None

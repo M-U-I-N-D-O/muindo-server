@@ -1,5 +1,5 @@
-from model.models import Look
-
+from model.models import Look, Confirm
+from model import db
 
 def random_looks_from_db(user_id=None, item_id=None):
 
@@ -11,6 +11,10 @@ def random_looks_from_db(user_id=None, item_id=None):
     return random_looks
 
 
-def test_looks_from_db(test):
-    test_looks = Look.query.limit(test).all()
-    return test_looks
+def add_confirm(confirm):
+
+    new_confirm = Confirm(confirm)
+    db.session.add(new_confirm)
+    db.session.commit()
+
+    return new_confirm.id

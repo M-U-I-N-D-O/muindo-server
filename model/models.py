@@ -1,10 +1,30 @@
 # coding: utf-8
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
+from datetime import datetime
 db = SQLAlchemy()
 
 
+
+class Confirm(db.Model):
+    __tablename__ = 'confirm'
+
+    id = db.Column(db.Integer, primary_key=True)
+    yes = db.Column(db.Integer)
+    no = db.Column(db.Integer)
+    lookid = db.Column(db.ForeignKey('look.id'), index=True)
+    userid = db.Column(db.ForeignKey('user.id'), index=True)
+    created = db.Column(db.DateTime)
+
+    look = db.relationship('Look', primaryjoin='Confirm.lookid == Look.id', backref='confirms')
+    user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='confirms')
+
+    def __init__(self, items: dict):
+        self.no = items.get('no')
+        self.yes = items.get('yes')
+        self.lookid = items.get('lookid')
+        self.userid = items.get('userid')
+        self.created = datetime.now()
 
 class Item(db.Model):
     __tablename__ = 'item'
@@ -45,16 +65,6 @@ class Look(db.Model):
     item4 = db.relationship('Item', primaryjoin='Look.top == Item.id', backref='item_item_item_item_looks2')
     user = db.relationship('User', primaryjoin='Look.userid == User.id', backref='looks')
 
-    def __init__(self, items:dict):
-
-        self.hat = items.get('hat')
-        self.top = items.get('top')
-        self.bottom=items.get('bottom')
-        self.bag=items.get('bag')
-        self.shoes=items.get('shoes')
-        self.url=items.get('url')
-        self.userid=items.get('userid')
-        self.created=datetime.now()
 
 
 class Style(db.Model):
