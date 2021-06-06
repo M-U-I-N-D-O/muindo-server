@@ -21,7 +21,18 @@ def get_access_token(email, name, uid, provider):
 
 
 
-@doc(tags=['auth'], description='리프레시 토큰 발급')
+@doc(tags=['auth'], description='리프레시 토큰으로 어세스 토큰 재발급')
+@doc(
+    description='need REFRESH-token',
+    params={
+        'Authorization': {
+            'description':
+            'Authorization HTTP header with JWT REFRESH token, like: Authorization: Bearer asdf.qwer.zxcv',
+            'in':'header',
+            'type':'string',
+            'required': True
+        }
+    })
 @auth.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 @marshal_with(AccessTokenSchema)

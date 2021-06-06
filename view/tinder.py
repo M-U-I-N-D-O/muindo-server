@@ -9,6 +9,17 @@ tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
 
 
 @doc(tags=['tinder'], description='무한적으로 넘기기')
+@doc(
+    description='need access-token',
+    params={
+        'Authorization': {
+            'description':
+            'Authorization HTTP header with JWT access token, like: Authorization: Bearer asdf.qwer.zxcv',
+            'in': 'header',
+            'type':'string',
+            'required': True
+        }
+    })
 @tinder.route('/tinder',methods=['GET'])
 @jwt_required()
 @marshal_with(TinderSchema(many=True))
