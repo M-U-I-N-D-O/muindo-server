@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,request,jsonify
 from flask_apispec import doc, use_kwargs, marshal_with
 from serializers.mypage import *
 from service.mypage import *
@@ -39,10 +39,16 @@ def get_my_look_detail(look_id):
             True
         }
     })
-@mypage.route('/my-looks/info', methods=['GET'])
+@mypage.route('/my-looks/info', methods=['POST','GET'])
 @use_kwargs(GetItemInfoSchema)
 @jwt_required()
 @marshal_with(ItemsInfoSchema(many=True))
 def get_look_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id ):
+    print(hat_id, top_id, bottom_id)
     return MyPageService.get_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id)
 
+@mypage.route('/test', methods=['GET','POST'])
+def test():
+    test_json = request.json
+    print(test_json)
+    return jsonify(test_json)
