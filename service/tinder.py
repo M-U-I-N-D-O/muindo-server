@@ -4,8 +4,8 @@ from repository.tinder import *
 class TinderService:
 
     @classmethod
-    def get_random_looks(self,user_id):
-        return random_looks_from_db(user_id)
+    def get_random_looks(self,user_id, item_id):
+        return random_looks_from_db(user_id=user_id, item_id=item_id)
 
     @classmethod
     def get_test_looks(self, test):

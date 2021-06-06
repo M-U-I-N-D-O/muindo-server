@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_apispec import doc, use_kwargs, marshal_with
-from serializers.tinder import *
+from marshmallow import fields
+from serializers.look import LookSchema
 from service.tinder import *
 from flask_jwt_extended import jwt_required, get_jwt
 
@@ -8,7 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt
 tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
 
 
-@doc(tags=['tinder'], description='무한적으로 넘기기')
+@doc(tags=['tinder'], description='컨펌 받기 위한 코디 이미지 불러오기')
 @doc(
     description='need access-token',
     params={
@@ -20,17 +21,18 @@ tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
             'required': True
         }
     })
-@tinder.route('/tinder',methods=['GET'])
+@tinder.route('/confirm', methods=['GET'])
+@use_kwargs({'itemid': fields.Integer()}, location="query")
 @jwt_required()
-@marshal_with(TinderSchema(many=True))
-def main_tinder():
+@marshal_with(LookSchema(many=True))
+def main_tinder(itemid=None):
     user_id = get_jwt()['sub']
-    return TinderService.get_my_looks(user_id)
+    return TinderService.get_random_looks(user_id, itemid)
 
 
 @doc(tags=['tinder'], description='테스트로 보내기')
 @tinder.route('/test',methods=['GET'])
-@marshal_with(TinderSchema(many=True))
+@marshal_with(LookSchema(many=True))
 def test_tinder():
     test =5
     return TinderService.get_test_looks(test)
