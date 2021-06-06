@@ -31,4 +31,3 @@ def get_my_look_detail(look_id):
 @marshal_with(ItemsInfoSchema(many=True))
 def get_look_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id ):
     return MyPageService.get_items_info(hat_id, top_id, bottom_id, shoes_id, bag_id)
-
