@@ -2,12 +2,11 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
 from view import look, mypage, auth, tinder
-from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from flask_cors import CORS
-
+from model import db
 
 def create_app():
 
@@ -22,10 +21,8 @@ def create_app():
         )
     })
     docs = FlaskApiSpec(app=app, document_options=False)
-
-    with app.app_context():
-        db = SQLAlchemy(app)
-        ma = Marshmallow(app)
+    db.init_app(app)
+    ma = Marshmallow(app)
     jwt = JWTManager(app)
 
     app.teardown_appcontext(shutdown_session)
@@ -57,11 +54,11 @@ def create_app():
 
     return app
 
-def shutdown_session(response):
 
-    from model import db
+def shutdown_session(response):
     db.session.remove()
     return response
+
 
 app = create_app()
 

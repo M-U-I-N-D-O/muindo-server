@@ -2,17 +2,7 @@ from model.models import Look, Item
 from sqlalchemy.sql.expression import func
 from model import db
 
-def get_user_looks(userid:int) -> list:
-    looks = Look.query.all()
-    return []
-
-
-def get_look(lookid:int) -> Look:
-    look = Look.query.filter(lookid)
-    return Look()
-
-
-def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None) -> list:
+def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None, userid=None) -> list:
 
     query = Item.query
 
@@ -26,12 +16,10 @@ def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None) ->
         query = query.filter(Item.brand==brand)
 
     if itemid:
-        print(itemid)
         query = query.filter(Item.id > itemid)
 
-    results = query.order_by().limit(12).all()
-
-    return results
+    results = query.order_by(func.rand(userid)).limit(12).all()
+    return sorted(results, key=lambda x : x.id)
 
 
 def add_look(items):
