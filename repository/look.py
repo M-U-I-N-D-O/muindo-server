@@ -8,7 +8,7 @@ def get_initial_items(type, userid, itemid):
     results = (
         Item.query.filter(or_(Item.category.like(type[0]), Item.category.like(type[1])))
         .filter(Item.id > itemid)
-        .order_by(func.rand(userid))
+        .order_by()
         .limit(12)
         .all()
     )
