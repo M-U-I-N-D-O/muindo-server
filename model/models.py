@@ -71,6 +71,7 @@ class Look(db.Model):
         self.userid = items.get('userid')
         self.hat = items.get('hat')
         self.top = items.get('top')
+        self.bag = items.get('bag')
         self.bottom = items.get('bottom')
         self.created = datetime.now()
         self.shoes = items.get('shoes')
