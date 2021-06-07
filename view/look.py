@@ -4,17 +4,17 @@ from serializers.look import LookRequest, LookSchema, ItemSchema, MakeLookReques
 from service.look import ItemService, LookService
 from flask_jwt_extended import jwt_required
 from marshmallow import ValidationError
+
 looks = Blueprint("looks", __name__, url_prefix="/looks")
 
 
 @doc(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
 @looks.route('/items', methods=['GET'])
-@use_kwargs(LookRequest, location="query")
+@use_kwargs(LookRequest, location='query')
 @marshal_with(ItemSchema(many=True))
-def get_musinsa_items(**kwargs):
-    filter=request.args
+def get_musinsa_items(**filter):
+    filter = request.args
     filter = filter.to_dict()
-
     return ItemService.get_musinsa_items(filter)
 
 
@@ -22,14 +22,13 @@ def get_musinsa_items(**kwargs):
 @looks.route('/upload', methods=['POST'])
 @marshal_with(LookSchema)
 def upload_codi():
-
     schema = MakeLookRequest()
     try:
         newlook = schema.load(request.get_json())
 
     except ValidationError as error:
         wrong_validated_items = error.args[0].get('items')
-        if wrong_validated_items :
+        if wrong_validated_items:
             validated_items = error.valid_data
             for c in wrong_validated_items.keys():
 
@@ -37,8 +36,7 @@ def upload_codi():
                     validated_items.get('items')[c] = None
 
                 else:
-                    validated_items['items'] = {c : None}
-
+                    validated_items['items'] = {c: None}
 
             newlook = validated_items
         else:

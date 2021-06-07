@@ -2,18 +2,18 @@ from marshmallow import Schema, fields
 from model.models import *
 
 
-def validate_item(n):
+
+def validte_type(n):
 
     if n == '':
-        print('nope')
-        n = -1
+        pass
 
 class LookRequest(Schema):
-    middlecategory = fields.String(default='', required=False)
-    subcategory = fields.String(default='', required=False)
-    brand = fields.String(default='', required=False)
-    type = fields.String(default='', required=False)
-    itemid = fields.Integer()
+    middlecategory = fields.String()
+    subcategory = fields.String()
+    brand = fields.String()
+    type = fields.String(required=True)
+    itemid = fields.String()
 
 
 class ItemSchema(Schema):
@@ -41,11 +41,11 @@ class LookSchema(Schema):
 
     id = fields.Integer()
     userid = fields.Integer()
-    hat = fields.Integer(validate=validate_item, default=0)
-    top = fields.Integer(validate=validate_item)
-    bottom = fields.Integer(validate=validate_item)
-    shoes = fields.Integer(validate=validate_item)
-    bag = fields.Integer(validate=validate_item)
+    hat = fields.Integer()
+    top = fields.Integer()
+    bottom = fields.Integer()
+    shoes = fields.Integer()
+    bag = fields.Integer()
     url = fields.String()
     ok = fields.Integer()
     no = fields.Integer()

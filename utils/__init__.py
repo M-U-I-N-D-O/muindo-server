@@ -17,3 +17,4 @@ class WrongRequestForm(Exception):
 def error_handler_400(error):
    return jsonify(error='bad request', message='요청값이 올바르지 않습니다. 스웨거를 잘 확인하세요.'), 400
 
+
