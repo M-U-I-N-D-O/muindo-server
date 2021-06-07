@@ -9,8 +9,18 @@ class MyPageService:
 
     @classmethod
     def get_my_look_detail(self, look_id):
-        return my_look_detail_from_db(look_id)
+        look=my_look_detail_from_db(look_id)
+        look_info_dict=init_look_info_dict(look)
+        look_info=item_info_from_db(look_info_dict)
+        look_info["my_look"]=look
+        print(look_info)
+        return look_info
 
-    @classmethod
-    def get_items_info(self, items):
-        return item_info_from_db(items)
+def init_look_info_dict(look):
+    look_info_dict = {}
+    look_info_dict["hat_id"] = look.hat
+    look_info_dict["top_id"] = look.top
+    look_info_dict["bottom_id"] = look.bottom
+    look_info_dict["shoes_id"] = look.shoes
+    look_info_dict["bag_id"] = look.bag
+    return look_info_dict

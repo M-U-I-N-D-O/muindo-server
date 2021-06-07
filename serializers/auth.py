@@ -7,7 +7,8 @@ class Tokens:
 
 class TokensSchema(Schema):
     class Meta:
-        msg = fields.Str()
+        access_token = fields.Str()
+        refresh_token = fields.Str()
 
 
 class AccessTokenSchema(Schema):
@@ -21,7 +22,4 @@ class GetTokensRequestSchema(Schema):
     email = fields.Email()
     name = fields.String()
     provider = fields.String()
-
-
-
 
