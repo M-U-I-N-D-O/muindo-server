@@ -39,7 +39,7 @@ def create_app():
 
     docs.register(look.get_musinsa_items, blueprint=look.looks.name)
     docs.register(look.upload_codi, blueprint=look.looks.name)
-    docs.register(look.confirm_codi, blueprint=look.looks.name)
+
     docs.register(mypage.get_my_looks, blueprint=mypage.mypage.name)
     docs.register(mypage.get_my_look_detail, blueprint=mypage.mypage.name)
     docs.register(mypage.get_look_items_info, blueprint=mypage.mypage.name)
