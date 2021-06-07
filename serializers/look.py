@@ -9,10 +9,10 @@ def validate_item(n):
         n = -1
 
 class LookRequest(Schema):
-    middlecategory = fields.String()
-    subcategory = fields.String()
-    brand = fields.String()
-    type = fields.String()
+    middlecategory = fields.String(default='', required=False)
+    subcategory = fields.String(default='', required=False)
+    brand = fields.String(default='', required=False)
+    type = fields.String(default='', required=False)
     itemid = fields.Integer()
 
 
