@@ -11,6 +11,7 @@ looks = Blueprint("looks", __name__, url_prefix="/looks")
 @doc(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
 @looks.route('/items', methods=['GET'])
 @use_kwargs(LookRequest, location='query')
+@jwt_required()
 @marshal_with(ItemSchema(many=True))
 def get_musinsa_items(**filter):
     filter = request.args
@@ -20,6 +21,7 @@ def get_musinsa_items(**filter):
 
 @doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
+@jwt_required()
 @marshal_with(LookSchema)
 def upload_codi():
     schema = MakeLookRequest()

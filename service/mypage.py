@@ -1,5 +1,4 @@
 from repository.mypage import *
-from flask import jsonify
 
 class MyPageService:
 
@@ -13,7 +12,6 @@ class MyPageService:
         look_info_dict=init_look_info_dict(look)
         look_info=item_info_from_db(look_info_dict)
         look_info["my_look"]=look
-        print(look_info)
         return look_info
 
 def init_look_info_dict(look):
