@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, fields, ValidationError, pre_load,validates
 
 class Tokens:
     def __init__(self, access_token, refresh_token):
@@ -7,7 +7,8 @@ class Tokens:
 
 class TokensSchema(Schema):
     class Meta:
-        msg = fields.Str()
+        access_token = fields.Str()
+        refresh_token = fields.Str()
 
 
 class AccessTokenSchema(Schema):
@@ -21,7 +22,6 @@ class GetTokensRequestSchema(Schema):
     email = fields.Email()
     name = fields.String()
     provider = fields.String()
-
 
 
 
