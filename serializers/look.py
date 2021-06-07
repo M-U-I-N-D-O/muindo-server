@@ -6,14 +6,14 @@ from model.models import *
 def validte_type(n):
 
     if n == '':
-        pass
+        n= None
 
 class LookRequest(Schema):
-    middlecategory = fields.String()
-    subcategory = fields.String()
-    brand = fields.String()
+    middlecategory = fields.String(validate=validte_type)
+    subcategory = fields.String(validate=validte_type)
+    brand = fields.String(validate=validte_type)
     type = fields.String(required=True)
-    itemid = fields.String()
+    itemid = fields.String(validate=validte_type)
 
 
 class ItemSchema(Schema):

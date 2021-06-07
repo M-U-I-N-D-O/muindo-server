@@ -3,17 +3,6 @@ from sqlalchemy.sql.expression import func, or_
 from model import db
 
 
-def get_initial_items(type, userid, itemid):
-
-    results = (
-        Item.query.filter(or_(Item.category.like(type[0]), Item.category.like(type[1])))
-        .filter(Item.id > itemid)
-        .order_by()
-        .limit(12)
-        .all()
-    )
-    return sorted(results, key=lambda x: x.id)
-
 
 def get_items(
     middlecategory=None, subcategory=None, brand=None, itemid=None, userid=None
@@ -22,18 +11,27 @@ def get_items(
     query = Item.query
 
     if subcategory:
-        query = query.filter(Item.subcategory.like(subcategory))
+        query = Item.query.filter(Item.subcategory.like(subcategory))
+        if middlecategory and str(type(middlecategory)) == "<class 'str'>":
+                query = query.filter(Item.category.like(middlecategory))
+
+    if str(type(middlecategory)) == "<class 'list'>":
+        query = Item.query.filter(
+            or_(Item.category.like(middlecategory[0]), Item.category.like(middlecategory[1]))
+        )
+
+    elif str(type(middlecategory)) == "<class 'str'>" and not subcategory:
+        query = query.filter(Item.category==middlecategory)
 
     if brand:
         query = query.filter(Item.brand == brand)
 
-    if itemid:
+    if itemid :
         query = query.filter(Item.id > itemid)
 
-    if middlecategory and not subcategory:
-        query = Item.query.filter(Item.category == middlecategory)
 
-    results = query.order_by(func.rand(userid)).limit(12).all()
+    results = query.order_by().limit(12).all()
+
     return sorted(results, key=lambda x: x.id)
 
 

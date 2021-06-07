@@ -5,23 +5,28 @@ from serializers.look import LookSchema
 
 class ItemService:
 
+    @classmethod
+    def check_none(self, data):
+
+        if data == '':
+            return None
+
+        return data
 
     @classmethod
     def get_musinsa_items(self, filter):
 
-        middlecategory = filter.get('middlecategory')
-        subcategory = filter.get('subcategory')
-        brand = filter.get('brand')
+        middlecategory = self.check_none(filter.get('middlecategory'))
+        subcategory = self.check_none(filter.get('subcategory'))
+        brand = self.check_none(filter.get('brand'))
         type = filter.get('type')
-        itemid = filter.get('itemid')
+        itemid = self.check_none(filter.get('itemid'))
         userid = filter.get('userid')
 
-        if not middlecategory and not subcategory and type:
+        if not filter.get('middlecategory') and not filter.get('subcategory'):
             from utils import category_dict
             middlecategory = category_dict.get(type)
-            return look.get_initial_items(middlecategory, userid, itemid)
 
-        else:
             return look.get_items(middlecategory, subcategory, brand, itemid, userid)
 
 
