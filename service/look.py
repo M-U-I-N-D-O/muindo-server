@@ -7,12 +7,21 @@ class ItemService:
 
 
     @classmethod
-    def get_musinsa_items(self, middlecategory=None, subcategory=None, brand=None, type=None, itemid=None):
+    def get_musinsa_items(self, filter):
+
+        middlecategory = filter.get('middlecategory')
+        subcategory = filter.get('subcategory')
+        brand = filter.get('brand')
+        type = filter.get('type')
+        itemid = filter.get('itemid')
 
         if not middlecategory and not subcategory and type:
             from utils import category_dict
-            middlecategory = category_dict.get(type)[0]
-        results = look.get_items(middlecategory=middlecategory, subcategory=subcategory, brand=brand, itemid=itemid)
+            middlecategory = category_dict.get(type)
+
+        results = look.get_items(middlecategory, subcategory, brand, itemid)
+
+
         return results
 
 

@@ -12,7 +12,7 @@ class AuthService:
     def create_tokens(self, user_id):
         try:
             access_token = create_access_token(identity=user_id, fresh=True)
-            response=jsonify({"msg": "login successful"})
+            response=jsonify({"msg": "login successful", "access_token" : access_token})
             set_access_cookies(response, access_token)
             return response
         except:

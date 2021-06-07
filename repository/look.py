@@ -1,5 +1,5 @@
 from model.models import Look, Item
-from sqlalchemy.sql.expression import func
+from sqlalchemy.sql.expression import func, or_
 from model import db
 
 def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None, userid=None) -> list:
@@ -7,7 +7,9 @@ def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None, us
     query = Item.query
 
     if middlecategory:
-        query = query.filter(Item.category.like(middlecategory))
+        for m in middlecategory:
+            query = query.filter(or_(Item.category.like(m)))
+
 
     if subcategory:
         query = query.filter(Item.subcategory.like(subcategory))

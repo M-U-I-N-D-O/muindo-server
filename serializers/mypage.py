@@ -11,6 +11,8 @@ class GetItemInfoSchema(Schema):
 
 class ItemsInfoSchema(Schema):
 
+    id = fields.Integer()
+    lookBookImgUrl = fields.String()
     hat = fields.Nested(ItemSchema)
     top = fields.Nested(ItemSchema)
     bottom = fields.Nested(ItemSchema)
