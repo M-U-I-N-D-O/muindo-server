@@ -32,7 +32,7 @@ def get_my_looks():
 
 @doc(tags=['mypage'], description='내가 올린 특정 룩의 각종 디테일한 사항들을 조회함')
 @mypage.route('/my-looks/<int:look_id>', methods=['GET'])
-@marshal_with(LookSchema())
+@marshal_with(LookInfoDictSchema)
 def get_my_look_detail(look_id):
     return MyPageService.get_my_look_detail(look_id)
 
