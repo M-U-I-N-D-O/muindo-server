@@ -31,9 +31,14 @@ def upload_codi():
         wrong_validated_items = error.args[0].get('items')
         if wrong_validated_items :
             validated_items = error.valid_data
-
             for c in wrong_validated_items.keys():
-                validated_items.get('items')[c] = None
+
+                if validated_items.get('items'):
+                    validated_items.get('items')[c] = None
+
+                else:
+                    validated_items['items'] = {c : None}
+
 
             newlook = validated_items
         else:
