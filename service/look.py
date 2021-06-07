@@ -19,7 +19,7 @@ class ItemService:
         if not middlecategory and not subcategory and type:
             from utils import category_dict
             middlecategory = category_dict.get(type)
-            return look.get_initial_items(middlecategory, userid)
+            return look.get_initial_items(middlecategory, userid, itemid)
 
         else:
             return look.get_items(middlecategory, subcategory, brand, itemid, userid)
