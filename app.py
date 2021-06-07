@@ -61,6 +61,7 @@ def create_app():
     from marshmallow.exceptions import ValidationError
     app.register_error_handler(BadRequest, error_handler_400)
     app.register_error_handler(ValidationError, error_handler_400)
+    app.register_error_handler(422, error_handler_400)
 
     @app.after_request
     def refresh_expiring_jwts(response):

@@ -19,9 +19,11 @@ class Confirm(db.Model):
     user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='confirms')
 
     def __init__(self, items: dict):
-        self.no = items.get('no')
-        self.yes = items.get('yes')
-        self.lookid = items.get('lookid')
+
+        confirm = items.get('opinion') == 'like'
+        self.yes = confirm
+        self.no = not confirm
+        self.lookid = items.get('id')
         self.userid = items.get('userid')
         self.created = datetime.now()
 

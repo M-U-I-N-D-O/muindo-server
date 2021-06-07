@@ -1,10 +1,10 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validate
 
 
 class ConfirmSchema(Schema):
-    yes = fields.Boolean()
-    no = fields.Boolean()
-    userid = fields.Integer()
+    id = fields.Integer()
+    opinion = fields.String(validate=validate.OneOf(["like", "nope"]))
+    token = fields.String()
 
 
 

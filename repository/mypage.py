@@ -13,10 +13,12 @@ def my_look_detail_from_db(look_id:int) -> Look:
     return look
 
 
-def item_info_from_db( hat_id, top_id, bottom_id, shoes_id, bag_id):
-    hat_info = Item.query.filter_by(id=hat_id).first()
-    top_info = Item.query.filter_by(id=top_id).first()
-    bottom_info = Item.query.filter_by(id=bottom_id).first()
-    shoes_info = Item.query.filter_by(id=shoes_id).first()
-    bag_info = Item.query.filter_by(id=bag_id).first()
-    return [hat_info, top_info, bottom_info, shoes_info, bag_info]
+def item_info_from_db(items:dict):
+
+    hat = Item.query.filter_by(id=items.get('hat_id')).first()
+    top = Item.query.filter_by(id=items.get('top_id')).first()
+    bottom = Item.query.filter_by(id=items.get('bottom_id')).first()
+    shoes = Item.query.filter_by(id=items.get('shoes_id')).first()
+    bag = Item.query.filter_by(id=items.get('bag_id')).first()
+
+    return {"hat" : hat, "top" : top, "bottom" : bottom, "shoes" : shoes, "bag" : bag}

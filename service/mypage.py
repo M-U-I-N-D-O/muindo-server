@@ -12,5 +12,5 @@ class MyPageService:
         return my_look_detail_from_db(look_id)
 
     @classmethod
-    def get_items_info(self, hat_id, top_id, bottom_id, shoes_id, bag_id ):
-        return item_info_from_db(hat_id, top_id, bottom_id, shoes_id, bag_id)
+    def get_items_info(self, items):
+        return item_info_from_db(items)

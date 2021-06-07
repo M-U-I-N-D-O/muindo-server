@@ -1,39 +1,18 @@
-from marshmallow import Schema, fields, validates_schema
-from model.models import *
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
-
-
-class MyLooksSchema(SQLAlchemySchema):
-    class Meta:
-        model = Look
-    id = auto_field()
-    created = auto_field()
-    userid = auto_field()
-    hat = auto_field()
-    top = auto_field()
-    bottom = auto_field()
-    shoes = auto_field()
-    bag = auto_field()
-    ok = auto_field()
-    no = auto_field()
-    url = auto_field()
-
+from marshmallow import Schema, fields
+from serializers.look import ItemSchema
 
 class GetItemInfoSchema(Schema):
-    hat_id = fields.Integer()
-    top_id = fields.Integer()
-    bottom_id = fields.Integer()
-    shoes_id = fields.Integer()
-    bag_id= fields.Integer()
+    hat_id = fields.String()
+    top_id = fields.String()
+    bottom_id = fields.String()
+    shoes_id = fields.String()
+    bag_id= fields.String()
 
 
-class ItemsInfoSchema(SQLAlchemySchema):
-    class Meta:
-        model = Item
-    id = auto_field()
-    name = auto_field()
-    url = auto_field()
-    musinsa = auto_field()
-    price = auto_field()
-    brand = auto_field()
+class ItemsInfoSchema(Schema):
 
+    hat = fields.Nested(ItemSchema)
+    top = fields.Nested(ItemSchema)
+    bottom = fields.Nested(ItemSchema)
+    bag = fields.Nested(ItemSchema)
+    shoes = fields.Nested(ItemSchema)
