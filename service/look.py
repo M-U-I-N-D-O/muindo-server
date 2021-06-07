@@ -23,11 +23,12 @@ class ItemService:
         itemid = self.check_none(filter.get('itemid'))
         userid = filter.get('userid')
 
-        if not filter.get('middlecategory') and not filter.get('subcategory'):
+        if not middlecategory and not subcategory:
             from utils import category_dict
             middlecategory = category_dict.get(type)
 
-            return look.get_items(middlecategory, subcategory, brand, itemid, userid)
+
+        return look.get_items(middlecategory, subcategory, brand, itemid, userid)
 
 
 
