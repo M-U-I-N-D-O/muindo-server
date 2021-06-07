@@ -10,4 +10,6 @@ class TinderService:
     @classmethod
     def confirm_looks(self, confirm):
 
-        return add_confirm(confirm) != None
+        if add_confirm(confirm) != None:
+            return get_confirm_info(confirm.get('id'))
+

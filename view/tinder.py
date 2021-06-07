@@ -26,18 +26,5 @@ def get_looks(itemid=None):
 def confirm_look(**kwargs):
 
     confirm = ConfirmSchema().load(request.get_json())
-    body = {}
-    code = None
+    return TinderService.confirm_looks(confirm)
 
-    if TinderService.confirm_looks(confirm):
-
-        body['message'] = '컨펌되었습니다.'
-        code = 201
-
-    else:
-        body['message'] = '컨펌 실패'
-        code = 200
-
-    from flask import jsonify
-
-    return str(body)

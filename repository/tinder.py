@@ -1,5 +1,7 @@
 from model.models import Look, Confirm
 from model import db
+from sqlalchemy.exc import IntegrityError
+from werkzeug.exceptions import BadRequest
 
 def random_looks_from_db(user_id=None, item_id=None):
 
@@ -15,6 +17,21 @@ def add_confirm(confirm):
 
     new_confirm = Confirm(confirm)
     db.session.add(new_confirm)
-    db.session.commit()
+    try : db.session.commit()
+    except IntegrityError as error:
+        raise BadRequest
 
     return new_confirm.id
+
+def get_confirm_info(lookid):
+
+    confirms = Confirm.query.filter(Confirm.lookid == lookid).all()
+    like , nope = 0 , 0
+
+    for confirm in confirms:
+        if confirm.yes :
+            like += 1
+        else:
+            nope += 1
+
+    return {'lookid' : lookid, 'like' : like, 'nope' : nope}

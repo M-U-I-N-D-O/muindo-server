@@ -7,4 +7,11 @@ class ConfirmSchema(Schema):
     token = fields.String()
 
 
+class LookConfirmInfo(Schema):
+
+    lookid = fields.Integer()
+    like = fields.Integer()
+    nope = fields.Integer()
+
+
 
