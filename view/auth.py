@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt
 from flask_apispec import doc, use_kwargs, marshal_with
@@ -8,18 +8,6 @@ from repository.auth import *
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
-
-
-
-@auth.errorhandler(422)
-@auth.errorhandler(400)
-def handle_error(err):
-    headers = err.data.get("headers", None)
-    messages = err.data.get("messages", ["Invalid request."])
-    if headers:
-        return jsonify({"errors": messages}), err.code, headers
-    else:
-        return jsonify({"errors": messages}), err.code
 
 
 @doc(tags=['auth'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
@@ -57,6 +45,7 @@ def refresh():
 
 @doc(tags=['auth'], description='리프레시 토큰 발급')
 @auth.route('/refresh3', methods=['GET'])
+@jwt_required()
 def hello():
     print(get_jwt()['sub'])
     return "hello"
