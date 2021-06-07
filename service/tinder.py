@@ -11,5 +11,6 @@ class TinderService:
     def confirm_looks(self, confirm):
 
         if add_confirm(confirm) != None:
+            update_look_info(confirm.get('opinion') == 'like', confirm.get('id'))
             return get_confirm_info(confirm.get('id'))
 
