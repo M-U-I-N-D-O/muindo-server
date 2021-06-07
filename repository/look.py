@@ -7,8 +7,7 @@ def get_items(middlecategory=None, subcategory=None, brand=None, itemid=None, us
     query = Item.query
 
     if middlecategory:
-        for m in middlecategory:
-            query = query.filter(or_(Item.category.like(m)))
+        query = query.filter(or_(Item.category.like(middlecategory[0]), Item.category.like(middlecategory[1])))
 
 
     if subcategory:
