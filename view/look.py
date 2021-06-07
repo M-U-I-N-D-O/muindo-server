@@ -10,7 +10,6 @@ looks = Blueprint("looks", __name__, url_prefix="/looks")
 @doc(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
 @looks.route('/items')
 @use_kwargs(LookRequest, location="query")
-@jwt_required()
 @marshal_with(ItemSchema(many=True))
 def get_musinsa_items(middlecategory=None, subcategory=None, brand=None, type=None, itemid=None):
     return ItemService.get_musinsa_items(middlecategory, subcategory, brand, type, itemid)
