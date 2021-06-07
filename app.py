@@ -53,7 +53,8 @@ def create_app():
                 r"*":{
                     "origins":["*"]
                     }
-                }
+                },
+            supports_credentials=True
     )
 
     from utils import error_handler_400
