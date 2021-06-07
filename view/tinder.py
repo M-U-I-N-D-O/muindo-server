@@ -5,6 +5,7 @@ from serializers.look import LookSchema
 from serializers.tinder import ConfirmSchema
 from service.tinder import *
 from flask_jwt_extended import jwt_required, get_jwt
+from utils import userid
 
 
 tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
@@ -24,10 +25,9 @@ tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
     })
 @tinder.route('/look', methods=['GET'])
 @use_kwargs({'itemid': fields.Integer()}, location="query")
-@jwt_required()
 @marshal_with(LookSchema(many=True))
 def get_looks(itemid=None):
-    user_id = get_jwt()['sub']
+    user_id = userid
     return TinderService.get_random_looks(user_id, itemid)
 
 
