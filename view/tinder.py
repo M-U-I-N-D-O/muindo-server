@@ -12,17 +12,6 @@ tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
 
 
 @doc(tags=['tinder'], description='컨펌 받기 위한 코디 이미지 불러오기')
-@doc(
-    description='need access-token',
-    params={
-        'Authorization': {
-            'description':
-            'Authorization HTTP header with JWT access token, like: Authorization: Bearer asdf.qwer.zxcv',
-            'in': 'header',
-            'type':'string',
-            'required': True
-        }
-    })
 @tinder.route('/look', methods=['GET'])
 @use_kwargs({'itemid': fields.Integer()}, location="query")
 @marshal_with(LookSchema(many=True))
