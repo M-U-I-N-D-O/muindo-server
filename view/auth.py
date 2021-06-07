@@ -22,7 +22,6 @@ def get_access_token(email, name, uid, provider):
 
 @doc(tags=['auth'], description='리프레시 토큰 발급')
 @auth.route('/refresh3', methods=['GET'])
-@jwt_required()
 def hello():
     print(get_jwt()['sub'])
     return "hello"

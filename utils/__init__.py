@@ -1,5 +1,6 @@
 from flask import jsonify
 
+userid = 12
 category_dict={
     'hat' : ['009', '007'],
     'top' : ['020', '002', '001'],

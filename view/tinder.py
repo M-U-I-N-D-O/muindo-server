@@ -51,4 +51,4 @@ def confirm_look(**kwargs):
 
     from flask import jsonify
 
-    return jsonify(body), code
+    return str(code)

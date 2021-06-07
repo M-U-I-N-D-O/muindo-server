@@ -2,8 +2,8 @@ import os
 from datetime import timedelta
 
 BASE_DIR = os.path.dirname(__file__)
-SQLALCHEMY_DATABASE_URI ='mysql+pymysql://admin:tnfkadlek1@myfirstdb.cwtu7qrvwhdo.ap-northeast-2.rds.amazonaws.com:3306/muindo?charset=utf8mb4'
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_DATABASE_URI = os.getenv('sherlockodds_db_connection_url')
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 SECRET_KEY = 'Thisissherlockodds'
 PROPAGATE_EXCEPTIONS = True
 JWT_SECRET_KEY = 'super-duper-secret'

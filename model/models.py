@@ -1,8 +1,7 @@
 # coding: utf-8
-from flask_sqlalchemy import SQLAlchemy
+from model import db
 
 from datetime import datetime
-db = SQLAlchemy()
 
 
 
@@ -66,6 +65,14 @@ class Look(db.Model):
     user = db.relationship('User', primaryjoin='Look.userid == User.id', backref='looks')
 
 
+    def __init__(self, items: dict):
+        self.userid = items.get('userid')
+        self.hat = items.get('hat')
+        self.top = items.get('top')
+        self.bottom = items.get('bottom')
+        self.created = datetime.now()
+        self.shoes = items.get('shoes')
+        self.url = items.get('url')
 
 class Style(db.Model):
     __tablename__ = 'style'

@@ -24,8 +24,10 @@ def create_app():
         )
     })
     docs = FlaskApiSpec(app=app, document_options=False)
-    db.init_app(app)
-    ma = Marshmallow(app)
+
+    with app.app_context():
+        db.init_app(app)
+        ma = Marshmallow(app)
     jwt = JWTManager(app)
 
     app.teardown_appcontext(shutdown_session)

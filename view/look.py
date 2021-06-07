@@ -25,7 +25,6 @@ def get_musinsa_items_dummy(middlecategory=None, subcategory=None, brand=None, t
 
 @doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
-@jwt_required()
 @marshal_with(LookSchema)
 def upload_codi():
 

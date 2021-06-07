@@ -35,11 +35,8 @@ class LookService:
         blob.upload_blob(imgdata)
 
         items = request.get('items')
-        userid = get_jwt()['sub']
         items['url'] = blob.url
-        items['userid'] = userid
 
         newlook = look.add_look(items)
-        newlook_schema = LookSchema()
 
         return newlook

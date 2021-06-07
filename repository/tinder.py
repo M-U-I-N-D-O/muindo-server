@@ -16,5 +16,5 @@ def add_confirm(confirm):
     new_confirm = Confirm(confirm)
     db.session.add(new_confirm)
     db.session.commit()
-
+    print(db)
     return new_confirm.id
