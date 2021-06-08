@@ -10,7 +10,7 @@ def random_looks_from_db(user_id=None, item_id=None):
     if item_id:
         query = query.filter(Look.id > item_id)
 
-    random_looks = query.order_by().limit(12).all()
+    random_looks = query.order_by(Look.created.desc()).limit(12).all()
     return random_looks
 
 
