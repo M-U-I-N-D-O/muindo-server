@@ -17,7 +17,7 @@ def random_looks_from_db(user_id=None, item_id=None):
 def update_look_info(confirm, lookid):
     look = Look.query.get(lookid)
     if confirm:
-        look.yes += 1
+        look.ok += 1
     else:
         look.no += 1
 
@@ -35,5 +35,5 @@ def add_confirm(confirm):
     return new_confirm.id
 
 def get_confirm_info(lookid):
-    look = Look.query.filter(Look.lookid == lookid).all()
-    return {'lookid' : lookid, 'like' : look.yes, 'nope' : look.no}
+    look = Look.query.filter(Look.id == lookid).first()
+    return {'lookid' : lookid, 'like' : look.ok, 'nope' : look.no}

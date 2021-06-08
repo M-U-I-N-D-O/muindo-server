@@ -24,7 +24,7 @@ def get_looks(itemid=None):
 @tinder.route('/confirm', methods=['POST'])
 @use_kwargs(ConfirmSchema)
 @jwt_required()
-def confirm_look():
+def confirm_look(**kwargs):
     confirm = ConfirmSchema().load(request.get_json())
     return TinderService.confirm_looks(confirm)
 
