@@ -50,6 +50,7 @@ def get_look_items_info(**kwargs):
 @doc(tags=['mypage'], description='내가 좋아요 누른 코디 목록 불러옴', auth=True)
 @mypage.route('/thumbs', methods=['GET'])
 @use_kwargs({"lookid" : fields.String()}, location='query')
+@jwt_required()
 @marshal_with(LookSchema(many=True))
 def get_thumbs(lookid):
     user_id=get_jwt()['sub']
