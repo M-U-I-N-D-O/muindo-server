@@ -31,12 +31,12 @@ def confirm_look(**kwargs):
 
 @doc(tags=['tinder'], description='좋아요', auth=True)
 @tinder.route('/thumbs/<int:lookid>', methods=['PUT'])
-@use_kwargs({"value" : fields.Boolean()}, location='form')
 @jwt_required()
 def thumbs_up(lookid):
 
     update_thumb = UpdateThumb()
     data = update_thumb.load(request.get_json())
+    #data = update_thumb.load(request.get_json())
     code = TinderService.add_thumbs_up(lookid, data.get('value'))
 
     if code :
