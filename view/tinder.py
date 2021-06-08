@@ -35,9 +35,8 @@ def confirm_look(**kwargs):
 def thumbs_up(lookid):
 
     update_thumb = UpdateThumb()
-    data = update_thumb.load(request.get_json())
-    #data = update_thumb.load(request.get_json())
-    code = TinderService.add_thumbs_up(lookid, data.get('value'))
+    data = update_thumb.load(request.get_json()).get('value')
+    code = TinderService.add_thumbs_up(lookid, data)
 
     if code :
         return Response(status=201)
