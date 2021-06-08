@@ -1,5 +1,5 @@
 from model import db
-from model.models import Look, Item
+from model.models import Look, Item, Thumb
 
 
 def my_looks_from_db(user_id):
@@ -25,8 +25,8 @@ def item_info_from_db(items:dict):
 
 def get_thumbs(userid, lookid=None):
 
-    query = Look.query.filter(Look.userid == userid)
+    query = Thumb.query.filter(Thumb.userid == userid)
     if lookid:
-        query = query.filter(Look.id > lookid)
-    results = query.order_by().limit(12).all()
+        query = query.filter(Thumb.lookid > lookid)
+    results = query.order_by(Thumb.created.desc()).limit(12).all()
     return [ thumb.look for thumb in results ]

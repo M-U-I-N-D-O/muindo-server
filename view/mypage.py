@@ -52,6 +52,6 @@ def get_look_items_info(**kwargs):
 @use_kwargs({"lookid" : fields.String()}, location='query')
 @jwt_required()
 @marshal_with(LookSchema(many=True))
-def get_thumbs(lookid):
+def get_thumbs(lookid=None):
     user_id=get_jwt()['sub']
     return MyPageService.get_my_thumbs(user_id, lookid)
