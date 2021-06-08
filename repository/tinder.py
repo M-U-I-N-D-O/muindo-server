@@ -43,6 +43,7 @@ def get_confirm_info(lookid):
 def add_thumb(look_id, value):
 
     look = Look.query.get(look_id)
+
     if not value:
         value =-1
     look.thumbs += value

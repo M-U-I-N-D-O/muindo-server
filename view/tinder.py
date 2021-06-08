@@ -2,7 +2,7 @@ from flask import Blueprint, request, Response
 from flask_apispec import doc, use_kwargs, marshal_with
 from marshmallow import fields
 from serializers.look import LookSchema
-from serializers.tinder import ConfirmSchema
+from serializers.tinder import ConfirmSchema, UpdateThumb
 from service.tinder import *
 from flask_jwt_extended import jwt_required, get_jwt
 
@@ -33,8 +33,11 @@ def confirm_look(**kwargs):
 @tinder.route('/thumbs/<int:lookid>', methods=['PUT'])
 @use_kwargs({"value" : fields.Boolean()}, location='form')
 @jwt_required()
-def thumbs_up(**kwargs):
-    code = TinderService.add_thumbs_up(kwargs)
+def thumbs_up(lookid):
+
+    update_thumb = UpdateThumb()
+    data = update_thumb.load(request.get_json())
+    code = TinderService.add_thumbs_up(lookid, data.get('value'))
 
     if code :
         return Response(status=201)

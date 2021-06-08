@@ -14,4 +14,9 @@ class LookConfirmInfo(Schema):
     nope = fields.Integer()
 
 
+class UpdateThumb(Schema):
+    lookid =  fields.Integer(),
+    value = fields.Boolean()
+
+
 
