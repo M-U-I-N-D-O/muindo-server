@@ -14,6 +14,13 @@ class MyPageService:
         look_info["my_look"]=look
         return look_info
 
+    @classmethod
+    def get_my_thumbs(self, user_id=None, look_id=None):
+        if look_id == '':
+            look_id = None
+        return get_thumbs(user_id, look_id)
+
+
 def init_look_info_dict(look):
     look_info_dict = {}
     look_info_dict["hat_id"] = look.hat

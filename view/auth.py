@@ -10,7 +10,16 @@ auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 
-@doc(tags=['auth'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
+@doc(tags=['auth'], description='로그인')
+@doc(params={
+        'Authorization': {
+            'description':
+            'Authorization HTTP header with JWT REFRESH token, like: Authorization: Bearer asdf.qwer.zxcv',
+            'in':'header',
+            'type':'string',
+            'required': True
+        }
+    })
 @auth.route('/access-token', methods=['POST'])
 @use_kwargs(GetTokensRequestSchema)
 @marshal_with(TokensSchema, code=201)
@@ -21,9 +30,10 @@ def get_access_token(email, name, uid, provider):
 
 
 
-@doc(tags=['auth'], description='리프레시 토큰으로 어세스 토큰 재발급')
+
 @doc(
-    description='need REFRESH-token',
+    tags=['auth'],
+    description='리프레시 토큰으로 어세스 토큰 재발급',
     params={
         'Authorization': {
             'description':

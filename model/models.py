@@ -103,3 +103,16 @@ class User(db.Model):
     email = db.Column(db.String(45))
     oauth = db.Column(db.String(10))
     uid = db.Column(db.String(45))
+
+
+
+class Thumb(db.Model):
+    __tablename__ = 'thumb'
+
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.ForeignKey('user.id'), index=True)
+    lookid = db.Column(db.ForeignKey('look.id'), index=True)
+    created = db.Column(db.DateTime)
+
+    look = db.relationship('Look', primaryjoin='Thumb.lookid == Look.id', backref='thumbs')
+    user = db.relationship('User', primaryjoin='Thumb.userid == User.id', backref='thumbs')

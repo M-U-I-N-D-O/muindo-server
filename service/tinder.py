@@ -14,3 +14,8 @@ class TinderService:
             update_look_info(confirm.get('opinion') == 'like', confirm.get('id'))
             return get_confirm_info(confirm.get('id'))
 
+    @classmethod
+    def add_thumbs_up(self, user_id, look_id):
+        return {"status" : "created", "id" : add_thumb(user_id,look_id)}
+
+
