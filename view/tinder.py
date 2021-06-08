@@ -34,8 +34,6 @@ def confirm_look(**kwargs):
 @use_kwargs({"value" : fields.Boolean()}, location='form')
 @jwt_required()
 def thumbs_up(**kwargs):
-
-    kwargs['value'] =request.get_json().get('value')
     code = TinderService.add_thumbs_up(kwargs)
 
     if code :
