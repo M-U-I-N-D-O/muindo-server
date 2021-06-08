@@ -16,7 +16,7 @@ class TinderService:
 
     @classmethod
     def add_thumbs_up(self, lookid, value):
-
+        print(lookid, value)
         return add_thumb(lookid, value)
 
 
