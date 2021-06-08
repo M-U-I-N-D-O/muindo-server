@@ -15,6 +15,7 @@ class LookConfirmInfo(Schema):
 
 
 class UpdateThumb(Schema):
+
     value = fields.Boolean()
 
 

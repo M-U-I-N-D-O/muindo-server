@@ -1,4 +1,4 @@
-from model.models import Look, Confirm
+from model.models import Look, Confirm, Thumb
 from model import db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import BadRequest
@@ -40,13 +40,16 @@ def get_confirm_info(lookid):
     return {'lookid' : lookid, 'like' : look.ok, 'nope' : look.no}
 
 
-def add_thumb(look_id, value):
+def add_thumb(userid, lookid, value):
 
-    look = Look.query.get(look_id)
+    look = Look.query.get(lookid)
 
     if not value:
         value =-1
     look.thumbs += value
+
+    new_thumb = Thumb(userid=userid, lookid=lookid, created=datetime.now())
+    db.session.add(new_thumb)
 
     try:
         db.session.commit()
