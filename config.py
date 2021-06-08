@@ -9,6 +9,5 @@ PROPAGATE_EXCEPTIONS = True
 JWT_SECRET_KEY = 'super-duper-secret'
 JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
 JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
-JWT_TOKEN_LOCATION = ["cookies", "headers"]
 
 SQLALCHEMY_POOL_SIZE=32
