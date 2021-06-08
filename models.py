@@ -1,6 +1,6 @@
 # coding: utf-8
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+
 
 db = SQLAlchemy()
 
@@ -20,13 +20,6 @@ class Confirm(db.Model):
     user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='confirms')
 
 
-
-    def __init__(self, items: dict):
-        self.no = items.get('no')
-        self.yes = items.get('yes')
-        self.lookid = items.get('lookid')
-        self.userid = items.get('userid')
-        self.created = datetime.now()
 
 class Item(db.Model):
     __tablename__ = 'item'
@@ -56,9 +49,10 @@ class Look(db.Model):
     bottom = db.Column(db.ForeignKey('item.id'), index=True)
     shoes = db.Column(db.ForeignKey('item.id'), index=True)
     bag = db.Column(db.ForeignKey('item.id'), index=True)
-    ok = db.Column(db.Integer)
-    no = db.Column(db.Integer)
+    ok = db.Column(db.Integer, server_default=db.FetchedValue())
+    no = db.Column(db.Integer, server_default=db.FetchedValue())
     url = db.Column(db.String(100))
+    thumbs = db.Column(db.Integer, server_default=db.FetchedValue())
 
     item = db.relationship('Item', primaryjoin='Look.bag == Item.id', backref='item_item_item_item_looks')
     item1 = db.relationship('Item', primaryjoin='Look.bottom == Item.id', backref='item_item_item_item_looks_0')
@@ -66,16 +60,6 @@ class Look(db.Model):
     item3 = db.relationship('Item', primaryjoin='Look.shoes == Item.id', backref='item_item_item_item_looks_0')
     item4 = db.relationship('Item', primaryjoin='Look.top == Item.id', backref='item_item_item_item_looks')
     user = db.relationship('User', primaryjoin='Look.userid == User.id', backref='looks')
-
-
-    def __init__(self, items: dict):
-        self.userid = items.get('userid')
-        self.hat = items.get('hat')
-        self.top = items.get('top')
-        self.bottom = items.get('bottom')
-        self.created = datetime.now()
-        self.shoes = items.get('shoes')
-        self.url = items.get('url')
 
 
 
@@ -94,6 +78,19 @@ class Style(db.Model):
     item_5 = db.Column(db.Integer)
     item_6 = db.Column(db.Integer)
     musinsa = db.Column(db.String(100))
+
+
+
+class Thumb(db.Model):
+    __tablename__ = 'thumb'
+
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.ForeignKey('user.id'), index=True)
+    lookid = db.Column(db.ForeignKey('look.id'), index=True)
+    created = db.Column(db.DateTime)
+
+    look = db.relationship('Look', primaryjoin='Thumb.lookid == Look.id', backref='thumbs')
+    user = db.relationship('User', primaryjoin='Thumb.userid == User.id', backref='thumbs')
 
 
 
