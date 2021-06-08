@@ -15,7 +15,7 @@ class TinderService:
             return get_confirm_info(confirm.get('id'))
 
     @classmethod
-    def add_thumbs_up(self, user_id, look_id):
-        return {"status" : "created", "id" : add_thumb(user_id,look_id)}
+    def add_thumbs_up(self, kwargs):
+        return add_thumb(kwargs.get('lookid'), kwargs.get('value'))
 
 

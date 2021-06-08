@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, Response
 from flask_apispec import doc, use_kwargs, marshal_with
 from marshmallow import fields
 from serializers.look import LookSchema
@@ -30,8 +30,13 @@ def confirm_look(**kwargs):
 
 
 @doc(tags=['tinder'], description='좋아요', auth=True)
-@tinder.route('/thumbs', methods=['POST'])
-@use_kwargs({"lookid" : fields.Integer()})
+@tinder.route('/thumbs/<int:lookid>', methods=['PUT'])
+@use_kwargs({"value" : fields.Boolean()}, location='form')
 @jwt_required()
-def thumbs_up(lookid):
-    return jsonify(TinderService.add_thumbs_up(get_jwt()['sub'], lookid))
+def thumbs_up(**kwargs):
+    code = TinderService.add_thumbs_up(kwargs)
+
+    if code :
+        return Response(status=201)
+
+    return Response()

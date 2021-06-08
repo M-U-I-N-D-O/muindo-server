@@ -1,4 +1,4 @@
-from model.models import Look, Confirm, Thumb
+from model.models import Look, Confirm
 from model import db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import BadRequest
@@ -40,8 +40,15 @@ def get_confirm_info(lookid):
     return {'lookid' : lookid, 'like' : look.ok, 'nope' : look.no}
 
 
-def add_thumb(user_id, look_id):
-    new_thumb = Thumb(userid=user_id, lookid=look_id, created = datetime.now())
-    db.session.add(new_thumb)
-    db.session.commit()
-    return new_thumb.id
+def add_thumb(look_id, value):
+
+    look = Look.query.get(look_id)
+    if not value:
+        value =-1
+    look.thumbs += value
+
+    try:
+        db.session.commit()
+    except Exception as ex:
+        return False
+    return True
