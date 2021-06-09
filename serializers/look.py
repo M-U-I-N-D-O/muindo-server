@@ -49,6 +49,7 @@ class LookSchema(Schema):
     url = fields.String()
     ok = fields.Integer()
     no = fields.Integer()
+    tpo = fields.String()
 
 class MakeLookRequest(Schema):
 

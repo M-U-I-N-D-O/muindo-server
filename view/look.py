@@ -19,11 +19,12 @@ def get_musinsa_items(**filter):
     return ItemService.get_musinsa_items(filter)
 
 
-@doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
+@doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬', auth=True)
 @looks.route('/upload', methods=['POST'])
+@use_kwargs(MakeLookRequest)
 @jwt_required()
 @marshal_with(LookSchema)
-def upload_codi():
+def upload_codi(**kwargs):
     schema = MakeLookRequest()
     try:
         newlook = schema.load(request.get_json())

@@ -59,6 +59,8 @@ class Look(db.Model):
     no = db.Column(db.Integer, server_default=db.FetchedValue())
     url = db.Column(db.String(100))
     thumbs = db.Column(db.Integer, server_default=db.FetchedValue())
+    tpo = db.Column(db.Text)
+
 
     item = db.relationship('Item', primaryjoin='Look.bag == Item.id', backref='item_item_item_item_looks0')
     item1 = db.relationship('Item', primaryjoin='Look.bottom == Item.id', backref='item_item_item_item_looks_0')
@@ -77,6 +79,7 @@ class Look(db.Model):
         self.created = datetime.now()
         self.shoes = items.get('shoes')
         self.url = items.get('url')
+        self.tpo = items.get('tpo')
 
 class Style(db.Model):
     __tablename__ = 'style'

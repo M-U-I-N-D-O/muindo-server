@@ -4,6 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import BadRequest
 from datetime import datetime
 
+
 def random_looks_from_db(user_id=None, item_id=None):
 
     query = Look.query

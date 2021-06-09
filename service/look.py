@@ -42,17 +42,17 @@ class LookService:
         from datetime import datetime
         import base64
 
-        imgdata = base64.b64decode(request.get('data').get('img'))
-
-        blob = BlobClient.from_connection_string(
-            conn_str='DefaultEndpointsProtocol=https;AccountName=sherlockodds;AccountKey=RIlkLeL57ZPdy3umfCGh6UjQIcdm7bRs3buFNrKiCOLlynk7T/ljVwVJI+RFZQtkW9GrAlx0zbrJfylATzS1fg==;EndpointSuffix=core.windows.net',
-            container_name='look',
-            blob_name=datetime.now().__str__()+'.jpg')
-
-        blob.upload_blob(imgdata)
+        # imgdata = base64.b64decode(request.get('data').get('img'))
+        #
+        # blob = BlobClient.from_connection_string(
+        #     conn_str='DefaultEndpointsProtocol=https;AccountName=sherlockodds;AccountKey=RIlkLeL57ZPdy3umfCGh6UjQIcdm7bRs3buFNrKiCOLlynk7T/ljVwVJI+RFZQtkW9GrAlx0zbrJfylATzS1fg==;EndpointSuffix=core.windows.net',
+        #     container_name='look',
+        #     blob_name=datetime.now().__str__()+'.jpg')
+        #
+        # blob.upload_blob(imgdata)
 
         items = request.get('items')
-        items['url'] = blob.url
+        items['url'] = ''
         items['userid'] = get_jwt()['sub']
         newlook = look.add_look(items)
 

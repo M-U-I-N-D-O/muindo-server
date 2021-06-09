@@ -53,6 +53,7 @@ class Look(db.Model):
     no = db.Column(db.Integer, server_default=db.FetchedValue())
     url = db.Column(db.String(100))
     thumbs = db.Column(db.Integer, server_default=db.FetchedValue())
+    tpo = db.Column(db.Text)
 
     item = db.relationship('Item', primaryjoin='Look.bag == Item.id', backref='item_item_item_item_looks')
     item1 = db.relationship('Item', primaryjoin='Look.bottom == Item.id', backref='item_item_item_item_looks_0')
@@ -85,12 +86,9 @@ class Thumb(db.Model):
     __tablename__ = 'thumb'
 
     id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.ForeignKey('user.id'), index=True)
-    lookid = db.Column(db.ForeignKey('look.id'), index=True)
+    userid = db.Column(db.Integer)
+    lookid = db.Column(db.Integer)
     created = db.Column(db.DateTime)
-
-    look = db.relationship('Look', primaryjoin='Thumb.lookid == Look.id', backref='thumbs')
-    user = db.relationship('User', primaryjoin='Thumb.userid == User.id', backref='thumbs')
 
 
 
