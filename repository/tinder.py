@@ -28,11 +28,6 @@ def add_confirm(confirm):
 
     new_confirm = Confirm(confirm)
     db.session.add(new_confirm)
-    look = Look.query.get(confirm.get('id'))
-    if confirm.get('opinion') == 'like':
-        look.ok += 1
-    else:
-        look.no += 1
 
     try : db.session.commit()
 
