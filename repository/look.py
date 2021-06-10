@@ -30,7 +30,7 @@ def get_items(
     #     query = query.filter(Item.id > itemid)
 
 
-    results = query.order_by(func.random(userid)).paginate(page=int(itemid), per_page=12)
+    results = query.order_by(func.random(userid)).paginate(page=itemid, per_page=12)
     return results.items
 
 

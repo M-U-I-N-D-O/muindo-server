@@ -13,7 +13,7 @@ class LookRequest(Schema):
     subcategory = fields.String(allow_none=True)
     brand = fields.String(allow_none=True)
     type = fields.String(required=True)
-    itemid = fields.String(allow_none=True)
+    page = fields.Integer()
 
     @pre_load
     def check_value(self, data, **kwargs):
