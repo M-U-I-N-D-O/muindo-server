@@ -26,24 +26,24 @@ def get_musinsa_items(**filter):
 @marshal_with(LookSchema)
 def upload_codi(**kwargs):
     schema = MakeLookRequest()
-    try:
-        newlook = schema.load(request.get_json())
 
-    except ValidationError as error:
-        wrong_validated_items = error.args[0].get('items')
-        if wrong_validated_items:
-            validated_items = error.valid_data
-            for c in wrong_validated_items.keys():
+    newlook = schema.load(request.get_json())
 
-                if validated_items.get('items'):
-                    validated_items.get('items')[c] = None
-
-                else:
-                    validated_items['items'] = {c: None}
-
-            newlook = validated_items
-        else:
-            from werkzeug.exceptions import BadRequest
-            raise BadRequest
+    # except ValidationError as error:
+    #     wrong_validated_items = error.args[0].get('items')
+    #     if wrong_validated_items:
+    #         validated_items = error.valid_data
+    #         for c in wrong_validated_items.keys():
+    #
+    #             if validated_items.get('items'):
+    #                 validated_items.get('items')[c] = None
+    #
+    #             else:
+    #                 validated_items['items'] = {c: None}
+    #
+    #         newlook = validated_items
+    #     else:
+    #         from werkzeug.exceptions import BadRequest
+    #         raise BadRequest
 
     return LookService.upload_look(newlook)

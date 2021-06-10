@@ -51,11 +51,11 @@ class LookSchema(Schema):
 
     id = fields.Integer()
     userid = fields.Integer()
-    hat = fields.Integer()
-    top = fields.Integer()
-    bottom = fields.Integer()
-    shoes = fields.Integer()
-    bag = fields.Integer()
+    hat = fields.Integer(allow_none=True)
+    top = fields.Integer(allow_none=True)
+    bottom = fields.Integer(allow_none=True)
+    shoes = fields.Integer(allow_none=True)
+    bag = fields.Integer(allow_none=True)
     url = fields.String()
     ok = fields.Integer()
     no = fields.Integer()
@@ -66,3 +66,12 @@ class MakeLookRequest(Schema):
     dataType = fields.String()
     data = fields.Nested(Schema.from_dict({"img" : fields.String()}))
     items = fields.Nested(LookSchema)
+
+    @pre_load
+    def check_none(self, data, **kwargs):
+
+        for k , v in data.get('items').items():
+            if v == '':
+                data.get('items')[k] = None
+
+        return data
