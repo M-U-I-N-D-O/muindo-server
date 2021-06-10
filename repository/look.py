@@ -26,13 +26,12 @@ def get_items(
     if brand:
         query = query.filter(Item.brand == brand)
 
-    if itemid :
-        query = query.filter(Item.id > itemid)
+    # if itemid :
+    #     query = query.filter(Item.id > itemid)
 
 
-    results = query.order_by().limit(12).all()
-
-    return sorted(results, key=lambda x: x.id)
+    results = query.order_by(func.random(userid)).paginate(page=int(itemid), per_page=12)
+    return results.items
 
 
 def add_look(items):

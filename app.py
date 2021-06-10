@@ -1,8 +1,5 @@
-from datetime import datetime
-from datetime import timedelta
-from datetime import timezone
 from flask import Flask
-from flask_jwt_extended import JWTManager, get_jwt, create_access_token,set_access_cookies
+from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
 from view import look, mypage, auth, tinder
 from flask_marshmallow import Marshmallow
@@ -63,7 +60,7 @@ def create_app():
     from utils import error_handler_400
     from werkzeug.exceptions import BadRequest
     from marshmallow.exceptions import ValidationError
-    #app.register_error_handler(BadRequest, error_handler_400)
+    app.register_error_handler(BadRequest, error_handler_400)
     app.register_error_handler(ValidationError, error_handler_400)
 
 

@@ -1,6 +1,7 @@
 from model.models import Look, Confirm, Thumb
 from model import db
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.sql import func
 from werkzeug.exceptions import BadRequest
 from datetime import datetime
 
@@ -13,6 +14,7 @@ def random_looks_from_db(user_id=None, item_id=None):
         query = query.filter(Look.id > item_id)
 
     random_looks = query.order_by(Look.created.desc()).limit(30).all()
+
 
     return random_looks
 
