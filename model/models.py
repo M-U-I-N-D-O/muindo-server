@@ -16,7 +16,7 @@ class Confirm(db.Model):
     created = db.Column(db.DateTime)
 
     look = db.relationship('Look', primaryjoin='Confirm.lookid == Look.id', backref='confirms')
-    user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='confirms')
+    user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='my_confirms')
 
     def __init__(self, items: dict):
 

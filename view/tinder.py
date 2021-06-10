@@ -26,6 +26,7 @@ def get_looks(itemid=None):
 @jwt_required()
 def confirm_look(**kwargs):
     confirm = ConfirmSchema().load(request.get_json())
+    confirm['userid'] = get_jwt()['sub']
     return TinderService.confirm_looks(confirm)
 
 
