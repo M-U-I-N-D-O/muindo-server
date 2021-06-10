@@ -65,7 +65,8 @@ class MakeLookRequest(Schema):
 
     dataType = fields.String()
     data = fields.Nested(Schema.from_dict({"img" : fields.String()}))
-    items = fields.Nested(LookSchema)
+    items = fields.Nested(LookSchema, only=('tpo','top', 'hat', 'bottom', 'shoes', 'bag'))
+    tpo = fields.String(allow_none=True)
 
     @pre_load
     def check_none(self, data, **kwargs):
@@ -73,5 +74,8 @@ class MakeLookRequest(Schema):
         for k , v in data.get('items').items():
             if v == '':
                 data.get('items')[k] = None
+
+        if data.get('tpo') != '':
+            data.get('items')['tpo'] = data.get('tpo')
 
         return data

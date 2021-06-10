@@ -9,6 +9,7 @@ class MyLookSchema(Schema):
     url = fields.String()
     ok = fields.Integer()
     no = fields.Integer()
+    tpo = fields.String()
 
 
 class GetItemInfoSchema(Schema):

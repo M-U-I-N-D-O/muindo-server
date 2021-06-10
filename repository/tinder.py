@@ -12,6 +12,8 @@ def random_looks_from_db(user_id=None, item_id=None):
         query = query.filter(Look.id > item_id)
 
     random_looks = query.order_by(Look.created.desc()).limit(12).all()
+    for r in random_looks:
+        print(r.confirms, user_id)
     return random_looks
 
 
