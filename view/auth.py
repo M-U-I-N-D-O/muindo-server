@@ -79,8 +79,7 @@ def hello():
 @auth.route('/access-token-guest', methods=['POST'])
 @marshal_with(TokensSchema, code=201)
 def get_access_token_for_guest():
-    guest = request.args
     uid = "".join([random.choice(string.ascii_letters) for _ in range(10)])
-    if_first_time_insert_db("guset@guset.com", guest, "guest", uid)
+    if_first_time_insert_db("guset@guset.com", "guest", "guest", uid)
     user_id = get_user_id(uid)
     return AuthService.create_tokens(user_id)
