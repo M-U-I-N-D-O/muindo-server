@@ -8,12 +8,12 @@ from datetime import datetime
 def random_looks_from_db(user_id=None, item_id=None):
 
     query = Look.query
+
     if item_id:
         query = query.filter(Look.id > item_id)
 
-    random_looks = query.order_by(Look.created.desc()).limit(12).all()
-    for r in random_looks:
-        print(r.confirms, user_id)
+    random_looks = query.order_by(Look.created.desc()).limit(30).all()
+
     return random_looks
 
 

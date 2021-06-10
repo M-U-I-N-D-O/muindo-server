@@ -16,7 +16,7 @@ class Confirm(db.Model):
     created = db.Column(db.DateTime)
 
     look = db.relationship('Look', primaryjoin='Confirm.lookid == Look.id', backref='confirms')
-    user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='my_confirms')
+    user = db.relationship('User', primaryjoin='Confirm.userid == User.id', backref='confirms')
 
     def __init__(self, items: dict):
 
@@ -118,5 +118,5 @@ class Thumb(db.Model):
     lookid = db.Column(db.ForeignKey('look.id'), index=True)
     created = db.Column(db.DateTime)
 
-    look = db.relationship('Look', primaryjoin='Thumb.lookid == Look.id', backref='thumbs_lookds')
+    look = db.relationship('Look', primaryjoin='Thumb.lookid == Look.id', backref='thumbs_looks')
     user = db.relationship('User', primaryjoin='Thumb.userid == User.id', backref='thumbs_users')
