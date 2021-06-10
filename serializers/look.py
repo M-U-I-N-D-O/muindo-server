@@ -1,19 +1,29 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, pre_load, pre_dump
 from model.models import *
 
 
 
 def validte_type(n):
-
     if n == '':
         n= None
+    return n
 
 class LookRequest(Schema):
-    middlecategory = fields.String(validate=validte_type)
-    subcategory = fields.String(validate=validte_type)
-    brand = fields.String(validate=validte_type)
+    middlecategory = fields.String(allow_none=True)
+    subcategory = fields.String(allow_none=True)
+    brand = fields.String(allow_none=True)
     type = fields.String(required=True)
-    itemid = fields.String(validate=validte_type)
+    itemid = fields.String(allow_none=True)
+
+    @pre_load
+    def check_value(self, data, **kwargs):
+        filters = {}
+        for k, v in data.data.items():
+            filters[k] = validte_type(v)
+
+        from werkzeug.datastructures import ImmutableMultiDict
+        new_data = ImmutableMultiDict(filters.items())
+        return new_data
 
 
 class ItemSchema(Schema):
