@@ -41,7 +41,8 @@ def get_access_token(email, name, uid, provider):
     params={
         'Authorization': {
             'description':
-            'Authorization HTTP header with JWT REFRESH token, like: Authorization: Bearer asdf.qwer.zxcv',
+            'Authorization HTTP header with JWT REFRESH token,'
+            'like: Authorization: Bearer asdf.qwer.zxcv',
             'in':'header',
             'type':'string',
             'required': True
@@ -76,7 +77,7 @@ def hello():
             'required': True
         }
     })
-@auth.route('/access-token-guest', methods=['POST'])
+@auth.route('/access-token-guest', methods=['GET'])
 @marshal_with(TokensSchema, code=201)
 def get_access_token_for_guest():
     uid = "".join([random.choice(string.ascii_letters) for _ in range(10)])
