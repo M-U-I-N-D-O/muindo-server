@@ -3,6 +3,9 @@ import pytest
 import config
 from sqlalchemy import create_engine, text
 import json
+from app import app
+from flask_jwt_extended import create_access_token
+
 database = create_engine(config.test_config['DB_URL'], encoding ='utf=8', max_overflow=0)
 
 @pytest.fixture
@@ -73,3 +76,16 @@ def test_unauthorized(api):
         'tinder/thumbs/6',
     )
     assert resp.status_code == 401
+
+def authorization_header_test():
+
+    identity =10
+    with app.test_client() as client:
+        with app.app_context():
+
+            access_token = create_access_token(identity=identity,fresh=True)
+            headers = {
+                'Authorization': 'Bearer {}'.format(access_token)
+            }
+            response = client.get('/mypage/my-looks', headers=headers)
+            assert response.status_code == 200
