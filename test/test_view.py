@@ -77,7 +77,7 @@ def test_unauthorized(api):
     )
     assert resp.status_code == 401
 
-def authorization_header_test():
+def test_get_mylooks():
 
     identity =10
     with app.test_client() as client:
@@ -88,4 +88,36 @@ def authorization_header_test():
                 'Authorization': 'Bearer {}'.format(access_token)
             }
             response = client.get('/mypage/my-looks', headers=headers)
+            assert response.status_code == 200
+
+def test_mylook_detail():
+
+    identity =10
+    with app.test_client() as client:
+        with app.app_context():
+
+            access_token = create_access_token(identity=identity,fresh=True)
+            headers = {
+                'Authorization': 'Bearer {}'.format(access_token)
+            }
+            response = client.get('/mypage/my-looks/3', headers=headers)
+            assert response.status_code == 200
+
+def test_mylook_detail():
+    ids = {
+    "hat_id" : "123",
+    "top_id" : "234",
+    "bottom_id" : "345",
+    "shoes_id" : "456",
+    "bag_id": "678"
+    }
+    identity =10
+    with app.test_client() as client:
+        with app.app_context():
+
+            access_token = create_access_token(identity=identity,fresh=True)
+            headers = {
+                'Authorization': 'Bearer {}'.format(access_token)
+            }
+            response = client.post('/mypage/my-looks/info', data = json.dumps(ids), headers=headers)
             assert response.status_code == 200
