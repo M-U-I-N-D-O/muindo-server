@@ -121,3 +121,18 @@ def test_mylook_detail():
             }
             response = client.post('/mypage/my-looks/info', data = json.dumps(ids), headers=headers)
             assert response.status_code == 200
+
+
+
+def test_get_thumbs():
+
+    identity =10
+    with app.test_client() as client:
+        with app.app_context():
+
+            access_token = create_access_token(identity=identity,fresh=True)
+            headers = {
+                'Authorization': 'Bearer {}'.format(access_token)
+            }
+            response = client.get('/mypage/thumbs?lookid=10', headers=headers)
+            assert response.status_code == 200
