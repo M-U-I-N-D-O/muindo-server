@@ -13,6 +13,19 @@ import string
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
+def auth_required():
+    def inner(func):
+        wrapped = doc( tags=['auth'],description='리프레시 토큰으로 어세스 토큰 재발급',params={'Authorization': {
+            'description':
+            'Authorization HTTP header with JWT REFRESH token,'
+            'like: Authorization: Bearer asdf.qwer.zxcv',
+            'in':'header',
+            'type':'string',
+            'required': True}})(func)
+        wrapped = jwt_required()(wrapped)
+        return wrapped
+    return inner
+
 
 @doc(tags=['auth'], description='로그인')
 @auth.route('/access-token', methods=['POST'])
@@ -49,9 +62,8 @@ def refresh():
 
 
 
-@doc(tags=['auth'], description='리프레시 토큰 발급')
-@auth.route('/refresh3', methods=['GET'])
-@jwt_required()
+@auth_required()
+@auth.route('/hello', methods=['GET'])
 def hello():
     print(get_jwt()['sub'])
     return "hello"
