@@ -125,7 +125,26 @@ def test_mylook_detail():
 
 
 def test_get_thumbs():
+    new_thumb={
+        'id' : '4',
+    'userid':"10",
+        "lookid":"10",
+        "created":"2021-03-02"
+    }
 
+    database.execute(text("""
+          INSERT INTO Thumb (
+              id,
+              userid,
+              lookid,
+              created
+          ) VALUES (
+              :id,
+              :userid,
+              :lookid,
+              :created
+          )
+      """), new_thumb)
     identity =10
     with app.test_client() as client:
         with app.app_context():
