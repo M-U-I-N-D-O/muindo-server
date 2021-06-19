@@ -12,13 +12,14 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
-    app.config.update({
-        'APISPEC_SPEC': APISpec(
+    apispec = APISpec(
             title='MUINDO',
             version='v1',
             openapi_version='2.0',
             plugins=[MarshmallowPlugin()],
         )
+    app.config.update({
+        'APISPEC_SPEC': apispec
     })
     docs = FlaskApiSpec(app=app, document_options=False)
 
