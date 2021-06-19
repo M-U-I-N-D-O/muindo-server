@@ -1,6 +1,5 @@
 from repository import look
 from flask_jwt_extended import get_jwt
-from serializers.look import LookSchema
 
 
 class ItemService:
@@ -34,6 +33,10 @@ class ItemService:
 
 
 class LookService:
+
+    @classmethod
+    def remove_look(self, id):
+        look.delete_look(id)
 
 
     @classmethod

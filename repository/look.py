@@ -41,3 +41,9 @@ def add_look(items):
     db.session.commit()
 
     return new_look
+
+
+def delete_look(id):
+    look = Look.query.get(id)
+    db.session.delete(look)
+    db.session.commit()
