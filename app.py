@@ -37,12 +37,14 @@ def create_app():
 
     docs.register(look.get_musinsa_items, blueprint=look.looks.name)
     docs.register(look.upload_codi, blueprint=look.looks.name)
+    docs.register(look.remove_look, blueprint=look.looks.name)
 
     docs.register(mypage.get_my_looks, blueprint=mypage.mypage.name)
     docs.register(mypage.get_my_look_detail, blueprint=mypage.mypage.name)
     docs.register(mypage.get_look_items_info, blueprint=mypage.mypage.name)
     docs.register(auth.get_access_token, blueprint=auth.auth.name)
     docs.register(auth.refresh, blueprint=auth.auth.name)
+    docs.register(auth.get_access_token_for_guest, blueprint=auth.auth.name)
 
     docs.register(tinder.get_looks, blueprint=tinder.tinder.name)
     docs.register(tinder.confirm_look, blueprint=tinder.tinder.name)
