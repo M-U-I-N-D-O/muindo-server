@@ -1,5 +1,4 @@
-from flask import Blueprint,request
-from flask_jwt_extended import jwt_required
+from flask import Blueprint
 from flask_jwt_extended import get_jwt
 from flask_apispec import doc, use_kwargs, marshal_with
 from service.auth import *
@@ -13,9 +12,7 @@ import string
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
-
-
-@auth_required(tags=['auth'], description='로그인')
+@doc(tags=['auth'], description='로그인')
 @auth.route('/access-token', methods=['POST'])
 @use_kwargs(GetTokensRequestSchema)
 @marshal_with(TokensSchema, code=201)
@@ -34,7 +31,7 @@ def refresh():
     return AuthService.create_access_token(user_id)
 
 
-@doc(tags=['auth'], description='로그인')
+@doc(tags=['auth'], description='게스트 로그인')
 @auth.route('/access-token-guest', methods=['GET'])
 @marshal_with(TokensSchema, code=201)
 def get_access_token_for_guest():

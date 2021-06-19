@@ -1,17 +1,15 @@
-from flask import Blueprint, request
-from flask_apispec import doc, use_kwargs, marshal_with
+from flask import Blueprint, request, Response
+from flask_apispec import use_kwargs, marshal_with
 from serializers.look import LookRequest, LookSchema, ItemSchema, MakeLookRequest
 from service.look import ItemService, LookService
-from flask_jwt_extended import jwt_required
-from marshmallow import ValidationError
+from decorators.view import auth_required
 
 looks = Blueprint("looks", __name__, url_prefix="/looks")
 
 
-@doc(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.', auth=True)
+@auth_required(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
 @looks.route('/items', methods=['GET'])
 @use_kwargs(LookRequest, location='query')
-@jwt_required()
 @marshal_with(ItemSchema(many=True))
 def get_musinsa_items(**filter):
     filter = request.args
@@ -19,31 +17,19 @@ def get_musinsa_items(**filter):
     return ItemService.get_musinsa_items(filter)
 
 
-@doc(tags=['looks'], description='조합한 아이템들을 코디로 만듬', auth=True)
+@auth_required(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
 @use_kwargs(MakeLookRequest)
-@jwt_required()
 @marshal_with(LookSchema)
 def upload_codi(**kwargs):
     schema = MakeLookRequest()
 
     newlook = schema.load(request.get_json())
 
-    # except ValidationError as error:
-    #     wrong_validated_items = error.args[0].get('items')
-    #     if wrong_validated_items:
-    #         validated_items = error.valid_data
-    #         for c in wrong_validated_items.keys():
-    #
-    #             if validated_items.get('items'):
-    #                 validated_items.get('items')[c] = None
-    #
-    #             else:
-    #                 validated_items['items'] = {c: None}
-    #
-    #         newlook = validated_items
-    #     else:
-    #         from werkzeug.exceptions import BadRequest
-    #         raise BadRequest
-
     return LookService.upload_look(newlook)
+
+@auth_required(tags=['looks'], description='나의 룩북 삭제')
+@looks.route('/remove/<int:lookid>', methods=['DELETE'])
+def remove_look(lookid):
+    LookService.remove_look(lookid)
+    return Response(status=200)
