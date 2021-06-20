@@ -20,7 +20,7 @@ def api():
 def test_get_access_token_refresh(api):
     new_user= {"email": "magic@gmail.com",
     "name": "magic",
-    "provider": "magic",
+    "provider": "KAKAO",
     "uid": "234324"}
     resp = api.post(
         '/auth/access-token',
@@ -34,10 +34,26 @@ def test_get_access_token_refresh(api):
     new_user_refresh_token = resp_json['refresh_token']
 
     resp = api.post(
-        'auth/refresh',
+        'auth/hello',
         headers = {'Authorization': "Bearer " +new_user_refresh_token}
     )
     assert resp.status_code ==200
+
+
+def test_validation(api):
+    new_user= {"email": "magic@gmail.com",
+    "name": "magic",
+    "provider": "asd",
+    "uid": "234324"}
+    resp = api.post(
+        '/auth/access-token',
+        data = json.dumps(new_user),
+        content_type ='application/json'
+    )
+    with pytest.raises(Exception) as execinfo:
+        raise Exception('provider이상')
+    assert resp.status_code ==422
+    assert execinfo.value.args[0]=='provider이상'
 
 
 def test_unauthorized(api):
