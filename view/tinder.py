@@ -1,5 +1,5 @@
 from flask import Blueprint, request, Response
-from flask_apispec import doc, use_kwargs, marshal_with
+from flask_apispec import use_kwargs, marshal_with
 from marshmallow import fields
 from serializers.look import LookSchema
 from serializers.tinder import ConfirmSchema, UpdateThumb
@@ -10,7 +10,7 @@ from decorators.view import auth_required
 tinder = Blueprint("tinder", __name__, url_prefix="/tinder")
 
 @tinder.route('/look', methods=['GET'])
-@auth_required(tags=['tinder'], description='컨펌 받기 위한 코디 이미지 불러오기', auth=True)
+@auth_required(tags=['tinder'], description='컨펌 받기 위한 코디 이미지 불러오기')
 @use_kwargs({'itemid': fields.Integer()}, location="query")
 @marshal_with(LookSchema(many=True))
 def get_looks(itemid=None):
@@ -19,7 +19,7 @@ def get_looks(itemid=None):
 
 
 @tinder.route('/confirm', methods=['POST'])
-@auth_required(tags=['tinder'], description='코디 컨펌하기', auth=True)
+@auth_required(tags=['tinder'], description='코디 컨펌하기')
 @use_kwargs(ConfirmSchema)
 @jwt_required()
 def confirm_look(**kwargs):
@@ -29,7 +29,7 @@ def confirm_look(**kwargs):
 
 
 @tinder.route('/thumbs/<int:lookid>', methods=['PUT'])
-@auth_required(tags=['tinder'], description='좋아요', auth=True)
+@auth_required(tags=['tinder'], description='좋아요')
 @use_kwargs(UpdateThumb)
 @jwt_required()
 def thumbs_up(lookid, **kwargs):
