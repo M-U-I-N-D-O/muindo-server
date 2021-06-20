@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt,jwt_required
 from flask_apispec import doc, use_kwargs, marshal_with
 from service.auth import *
 from serializers.auth import *
@@ -22,9 +22,8 @@ def get_access_token(email, name, uid, provider):
     return AuthService.create_tokens(user_id)
 
 
-
-@auth_required(tags=['auth'], description='리프레시 토큰으로 어세스 토큰 재발급', refresh=True)
 @auth.route('/refresh', methods=['POST'])
+@auth_required(tags=['auth'], description='리프레시 토큰으로 어세스 토큰 재발급', refresh=True)
 @marshal_with(AccessTokenSchema)
 def refresh():
     user_id = get_jwt()['sub']
