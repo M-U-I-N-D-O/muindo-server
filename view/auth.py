@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt,jwt_required
 from flask_apispec import doc, use_kwargs, marshal_with
 from service.auth import *
 from serializers.auth import *
@@ -20,8 +20,6 @@ def get_access_token(email, name, uid, provider):
     if_first_time_insert_db(email, name, provider, uid)
     user_id = get_user_id(uid)
     return AuthService.create_tokens(user_id)
-
-
 
 
 @auth.route('/refresh', methods=['POST'])
