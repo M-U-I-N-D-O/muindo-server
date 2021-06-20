@@ -23,8 +23,9 @@ def get_access_token(email, name, uid, provider):
 
 
 
-@auth_required(tags=['auth'], description='리프레시 토큰으로 어세스 토큰 재발급', refresh=True)
+
 @auth.route('/refresh', methods=['POST'])
+@auth_required(tags=['auth'], description='리프레시 토큰으로 어세스 토큰 재발급', refresh=True)
 @marshal_with(AccessTokenSchema)
 def refresh():
     user_id = get_jwt()['sub']
