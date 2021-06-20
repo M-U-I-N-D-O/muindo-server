@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 
 BASE_DIR = os.path.dirname(__file__)
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://suram:suram@elice-kdt-ai-track-vm-distribute-12.koreacentral.cloudapp.azure.com:3306/muindo?charset=utf8mb4'
+SQLALCHEMY_DATABASE_URI = os.getenv('sherlockodds_db_connection_url')
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SECRET_KEY = 'Thisissherlockodds'
 PROPAGATE_EXCEPTIONS = True
