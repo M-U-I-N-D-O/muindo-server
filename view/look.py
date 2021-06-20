@@ -7,8 +7,9 @@ from decorators.view import auth_required
 looks = Blueprint("looks", __name__, url_prefix="/looks")
 
 
-@auth_required(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
+
 @looks.route('/items', methods=['GET'])
+@auth_required(tags=['looks'], description='필터 조건에 따라 무신사 아이템들을 보여줌.')
 @use_kwargs(LookRequest, location='query')
 @marshal_with(ItemSchema(many=True))
 def get_musinsa_items(**filter):
@@ -17,8 +18,8 @@ def get_musinsa_items(**filter):
     return ItemService.get_musinsa_items(filter)
 
 
-@auth_required(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @looks.route('/upload', methods=['POST'])
+@auth_required(tags=['looks'], description='조합한 아이템들을 코디로 만듬')
 @use_kwargs(MakeLookRequest)
 @marshal_with(LookSchema)
 def upload_codi(**kwargs):
@@ -28,8 +29,9 @@ def upload_codi(**kwargs):
 
     return LookService.upload_look(newlook)
 
-@auth_required(tags=['looks'], description='나의 룩북 삭제')
+
 @looks.route('/remove/<int:lookid>', methods=['DELETE'])
+@auth_required(tags=['looks'], description='나의 룩북 삭제')
 def remove_look(lookid):
     LookService.remove_look(lookid)
     return Response(status=200)
