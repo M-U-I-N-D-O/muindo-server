@@ -3,7 +3,7 @@ name: muindo api CI/CD
 on: 
   push:
     branches:
-      - main
+      - sprint
 
 env:
   AZURE_WEBAPP_NAME: muindoooapi    # set this to your application's name
