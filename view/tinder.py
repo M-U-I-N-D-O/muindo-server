@@ -21,7 +21,6 @@ def get_looks(itemid=None):
 @tinder.route('/confirm', methods=['POST'])
 @auth_required(tags=['tinder'], description='코디 컨펌하기')
 @use_kwargs(ConfirmSchema)
-@jwt_required()
 def confirm_look(**kwargs):
     confirm = ConfirmSchema().load(request.get_json())
     confirm['userid'] = get_jwt()['sub']
@@ -31,7 +30,6 @@ def confirm_look(**kwargs):
 @tinder.route('/thumbs/<int:lookid>', methods=['PUT'])
 @auth_required(tags=['tinder'], description='좋아요')
 @use_kwargs(UpdateThumb)
-@jwt_required()
 def thumbs_up(lookid, **kwargs):
 
     update_thumb = UpdateThumb()
