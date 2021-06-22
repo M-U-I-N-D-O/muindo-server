@@ -17,8 +17,7 @@ auth = Blueprint("auth", __name__, url_prefix="/auth")
 @use_kwargs(GetTokensRequestSchema)
 @marshal_with(TokensSchema, code=201)
 def get_access_token(email, name, uid, provider):
-    if_first_time_insert_db(email, name, provider, uid)
-    user_id = get_user_id(uid)
+    user_id=if_first_time_insert_db_and_get_user_id(email, name, provider, uid)
     return AuthService.create_tokens(user_id)
 
 
