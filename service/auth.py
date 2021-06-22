@@ -4,8 +4,8 @@ from flask import jsonify
 from repository.auth import db_check_if_not_insert_to_db
 
 
-def if_first_time_insert_db(email, name, provider, unique_id):
-    db_check_if_not_insert_to_db(email, name, provider, unique_id)
+def if_first_time_insert_db_and_get_user_id(email, name, provider, unique_id):
+    return db_check_if_not_insert_to_db_and_get_user_id(email, name, provider, unique_id)
 
 
 class AuthService:
