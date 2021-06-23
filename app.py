@@ -65,7 +65,7 @@ def create_app():
     from werkzeug.exceptions import BadRequest
     from marshmallow.exceptions import ValidationError
     app.register_error_handler(BadRequest, error_handler_400)
-    app.register_error_handler(ValidationError, error_handler_400)
+    #app.register_error_handler(ValidationError, error_handler_400)
 
 
     return app
