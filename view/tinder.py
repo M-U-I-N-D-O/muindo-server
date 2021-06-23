@@ -4,7 +4,7 @@ from marshmallow import fields
 from serializers.look import LookSchema
 from serializers.tinder import ConfirmSchema, UpdateThumb
 from service.tinder import *
-from flask_jwt_extended import jwt_required, get_jwt
+from flask_jwt_extended import get_jwt
 from decorators.view import auth_required
 
 tinder = Blueprint("tinder", __name__, url_prefix="/tinder")

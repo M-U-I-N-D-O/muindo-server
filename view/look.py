@@ -3,6 +3,7 @@ from flask_apispec import use_kwargs, marshal_with
 from serializers.look import LookRequest, LookSchema, ItemSchema, MakeLookRequest
 from service.look import ItemService, LookService
 from decorators.view import auth_required
+from flask_jwt_extended import get_jwt
 
 looks = Blueprint("looks", __name__, url_prefix="/looks")
 
@@ -15,6 +16,7 @@ looks = Blueprint("looks", __name__, url_prefix="/looks")
 def get_musinsa_items(**filter):
     filter = request.args
     filter = filter.to_dict()
+    filter['userid'] = get_jwt()['sub']
     return ItemService.get_musinsa_items(filter)
 
 
