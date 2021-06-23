@@ -34,5 +34,5 @@ def refresh():
 @marshal_with(TokensSchema, code=201)
 def get_access_token_for_guest():
     uid = "".join([random.choice(string.ascii_letters) for _ in range(10)])
-    guset_insert_to_db("guset@guset.com", "guest", "guest", uid)
-    return AuthService.create_tokens(uid)
+    user_id=guset_insert_to_db("guset@guset.com", "guest", "guest", uid)
+    return AuthService.create_tokens(user_id)

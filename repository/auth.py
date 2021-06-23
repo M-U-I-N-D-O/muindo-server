@@ -15,3 +15,4 @@ def guset_insert_to_db(email, name, provider, unique_id):
     user = User(name=name, email=email, uid=unique_id, oauth=provider)
     db.session.add(user)
     db.session.commit()
+    return user.id

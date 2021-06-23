@@ -1,7 +1,7 @@
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import create_refresh_token
 from flask import jsonify
-from repository.auth import db_check_if_not_insert_to_db
+from repository.auth import *
 
 
 def if_first_time_insert_db_and_get_user_id(email, name, provider, unique_id):
