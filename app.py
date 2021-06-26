@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_apispec import FlaskApiSpec
-from view import look, mypage, auth, tinder
+from view import look, mypage, auth, tinder, solution
 from flask_marshmallow import Marshmallow
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
@@ -34,6 +34,7 @@ def create_app():
     app.register_blueprint(mypage.mypage)
     app.register_blueprint(auth.auth)
     app.register_blueprint(tinder.tinder)
+    app.register_blueprint(solution.solution)
 
     docs.register(look.get_musinsa_items, blueprint=look.looks.name)
     docs.register(look.upload_codi, blueprint=look.looks.name)
@@ -51,6 +52,8 @@ def create_app():
     docs.register(tinder.thumbs_up, blueprint=tinder.tinder.name)
     docs.register(mypage.get_thumbs, blueprint=mypage.mypage.name)
 
+    docs.register(solution.get_sample_codis, blueprint=solution.solution.name)
+
     CORS(
             app,
             resources={
@@ -65,7 +68,7 @@ def create_app():
     from werkzeug.exceptions import BadRequest
     from marshmallow.exceptions import ValidationError
     app.register_error_handler(BadRequest, error_handler_400)
-    app.register_error_handler(ValidationError, error_handler_400)
+    #app.register_error_handler(ValidationError, error_handler_400)
 
 
     return app
