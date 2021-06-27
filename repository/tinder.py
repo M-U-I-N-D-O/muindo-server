@@ -67,7 +67,7 @@ def add_thumb(userid, lookid, value):
 
 def remove_thumb(userid, lookid):
 
-    thumb = Thumb.query.filter(userid=userid, lookid=lookid).first()
+    thumb = Thumb.query.filter(Thumb.userid==userid,Thumb.lookid==lookid).first()
     db.session.delete(thumb)
     look = Look.query.get(lookid)
     look.thumbs -= 1
