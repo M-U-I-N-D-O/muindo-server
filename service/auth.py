@@ -1,3 +1,4 @@
+import flask
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import create_refresh_token
 from flask import jsonify
@@ -17,7 +18,8 @@ class AuthService:
     def create_tokens(self, user_id):
         access_token = create_access_token(identity=user_id, fresh=True)
         refresh_token = create_refresh_token(identity=user_id)
-        return {"access_token": access_token, "refresh_token": refresh_token}
+        return jsonify(access_token=access_token, refresh_token=refresh_token)
+
 
     @classmethod
     def create_access_token(self,user_id):
