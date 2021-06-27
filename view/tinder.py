@@ -42,3 +42,9 @@ def thumbs_up(lookid, **kwargs):
         return Response(status=201)
 
     return Response()
+
+@tinder.route('/thumbs/<int:lookid>', methods=['DELETE'])
+@auth_required(tags=['tinder'], description='좋아요 취소')
+def cancle_thumbs_up(lookid):
+    TinderService.remove_thumb(get_jwt()['sub'], lookid)
+    return Response(status=200)
