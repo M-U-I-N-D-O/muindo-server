@@ -32,7 +32,7 @@ def upload_codi(**kwargs):
     return LookService.upload_look(newlook)
 
 
-@looks.route('/remove/<int:lookid>', methods=['DELETE'])
+@looks.route('/<int:lookid>', methods=['DELETE'])
 @auth_required(tags=['looks'], description='나의 룩북 삭제')
 def remove_look(lookid):
     LookService.remove_look(lookid)

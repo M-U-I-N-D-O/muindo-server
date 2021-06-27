@@ -21,3 +21,6 @@ class TinderService:
         return add_thumb(userid=data.get('userid'), lookid=data.get('lookid'), value=data.get('value'))
 
 
+    @classmethod
+    def remove_thumb(self, userid, lookid):
+        remove_thumb(userid, lookid)
