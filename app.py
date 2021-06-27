@@ -70,6 +70,10 @@ def create_app():
     app.register_error_handler(BadRequest, error_handler_400)
     #app.register_error_handler(ValidationError, error_handler_400)
 
+    @app.after_request
+    def add_header(response):
+        response.headers['Connection'] = 'close'
+        return response
 
     return app
 
