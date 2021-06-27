@@ -51,7 +51,7 @@ def create_app():
     docs.register(tinder.confirm_look, blueprint=tinder.tinder.name)
     docs.register(tinder.thumbs_up, blueprint=tinder.tinder.name)
     docs.register(mypage.get_thumbs, blueprint=mypage.mypage.name)
-
+    docs.register(tinder.cancle_thumbs_up, blueprint=tinder.tinder.name)
     docs.register(solution.get_sample_codis, blueprint=solution.solution.name)
 
     CORS(

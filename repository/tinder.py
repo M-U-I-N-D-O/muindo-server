@@ -63,3 +63,13 @@ def add_thumb(userid, lookid, value):
     except Exception as ex:
         return False
     return True
+
+
+def remove_thumb(userid, lookid):
+
+    thumb = Thumb.query.filter(userid=userid, lookid=lookid).first()
+    db.session.delete(thumb)
+    look = Look.query.get(lookid)
+    look.thumbs -= 1
+    db.session.commit()
+
