@@ -7,6 +7,10 @@ from repository.auth import *
 def if_first_time_insert_db_and_get_user_id(email, name, provider, unique_id):
     return db_check_if_not_insert_to_db_and_get_user_id(email, name, provider, unique_id)
 
+def guest_login(email, name, provider, unique_id):
+    return guset_insert_to_db(email, name, provider, unique_id)
+
+
 
 class AuthService:
     @classmethod
