@@ -42,7 +42,7 @@
 <img src="https://media.discordapp.net/attachments/841879813371592717/858779849916547072/muindo_.png" alt style="zoom:80%;" />
 
 + <h4><b>API Document</b></h4>
-https://muindoooapi.azurewebsites.net/swagger-ui
+https://app.swaggerhub.com/apis-docs/VisualUp/MUINDO/v1
 
 
 <!-- This is the place where you give instructions to developers on how to modify the code.
