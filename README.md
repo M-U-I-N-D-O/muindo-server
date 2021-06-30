@@ -32,49 +32,6 @@
 
 <br />
 
-
-
-## Install
-
-<!-- 3. write a instructions to installation (필수) -->
-<!-- [(Back to top)](#installation-contents) -->
-
-1. Clone the repository
-
-```
-git clone https://github.com/M-U-I-N-D-O/muindo-client.git
-```
-
-2. Change the working directory
-
-```
-cd client
-```
-
-<br />
-
-
-## Usage
-
-<!-- 4. This is used to give the user info on how to use the project after installation. This could be added in the Installation section also. (필수) -->
-
-<!-- [(Back to top)](#usage-contents) -->
-
-1.  npm install
-
-```
-npm i
-```
-
-2.  run
-
-```
-npm start
-```
-
-<br />
-
-
 ## Development
 
 <!-- (4.5). 필수 맞죠 ?? 시스템 구성도 같은 것 (필수) -->
