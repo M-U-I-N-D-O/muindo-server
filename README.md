@@ -44,6 +44,8 @@
 + <h4><b>API Document</b></h4>
 https://app.swaggerhub.com/apis-docs/VisualUp/MUINDO/v1
 
++ <h4><b>ERD</b></h4>
+<img src="https://user-images.githubusercontent.com/20367043/124504160-dc763500-de01-11eb-9971-807b6ed54ac1.PNG" width = "60%" alt style="zoom:80%;" />
 
 <!-- This is the place where you give instructions to developers on how to modify the code.
 You could give **instructions in depth** of **how the code works** and how everything is put together. -->
